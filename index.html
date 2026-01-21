@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jacob Ziolkowski — System</title>
+  <meta name="description" content="A dark-mode, surveillance-Apple aesthetic portfolio entry screen." />
+  <style>
+    :root{
+      /* Obsidian palette */
+      --bg0:#0b0b0d;
+      --bg1:#101014;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.10);
+      --text:#ededed;
+      --muted: rgba(237,237,237,.72);
+      --muted2: rgba(237,237,237,.52);
+
+      /* Pick ONE accent */
+      --accent:#6aa8ff; /* cold blue */
+      /* --accent:#ff9a6a; */ /* ember */
+
+      --radius: 18px;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Garamond, serif;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      color:var(--text);
+      font-family:var(--sans);
+      background:
+        radial-gradient(1200px 700px at 50% 35%, rgba(255,255,255,.06), transparent 60%),
+        radial-gradient(900px 500px at 15% 80%, rgba(106,168,255,.06), transparent 65%),
+        radial-gradient(900px 500px at 85% 15%, rgba(106,168,255,.04), transparent 65%),
+        linear-gradient(180deg, var(--bg1), var(--bg0));
+      overflow:hidden;
+    }
+
+    /* Subtle film grain (no image needed) */
+    .grain{
+      pointer-events:none;
+      position:fixed;
+      inset:-40%;
+      opacity:.12;
+      mix-blend-mode:overlay;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(255,255,255,.02), rgba(255,255,255,.02) 1px, transparent 1px, transparent 2px),
+        repeating-linear-gradient(90deg, rgba(0,0,0,.03), rgba(0,0,0,.03) 1px, transparent 1px, transparent 3px);
+      filter: contrast(120%);
+      animation: grainShift 7s steps(10) infinite;
+      transform: translate3d(0,0,0);
+    }
+    @keyframes grainShift{
+      0%{ transform:translate(-2%, -2%) rotate(0.3deg); }
+      25%{ transform:translate(2%, -1%) rotate(-0.2deg); }
+      50%{ transform:translate(1%, 2%) rotate(0.2deg); }
+      75%{ transform:translate(-1%, 1%) rotate(-0.3deg); }
+      100%{ transform:translate(-2%, -2%) rotate(0.3deg); }
+    }
+
+    /* Faint grid */
+    .grid{
+      pointer-events:none;
+      position:fixed;
+      inset:0;
+      background:
+        linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 64px 64px;
+      opacity:.05;
+      mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 35%, rgba(0,0,0,.25) 70%, rgba(0,0,0,0) 100%);
+    }
+
+    /* Layout */
+    .wrap{
+      height:100%;
+      display:grid;
+      place-items:center;
+      padding:28px;
+    }
+
+    .frame{
+      width:min(860px, 100%);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+      padding: 44px 44px 36px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    /* top nav (minimal) */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom: 34px;
+    }
+    .sig{
+      display:flex; align-items:center; gap:10px;
+      font-family:var(--mono);
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted2);
+    }
+    .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: var(--accent);
+      box-shadow: 0 0 18px rgba(106,168,255,.55);
+      opacity:.85;
+    }
+    .nav{
+      display:flex; gap:18px;
+      font-family:var(--mono);
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .nav a{
+      color:var(--muted2);
+      text-decoration:none;
+      padding:8px 10px;
+      border-radius: 12px;
+      transition: color .2s ease, background .2s ease;
+    }
+    .nav a:hover{
+      color:var(--text);
+      background: rgba(255,255,255,.06);
+    }
+
+    /* hero core */
+    .hero{
+      display:grid;
+      place-items:center;
+      text-align:center;
+      padding: 10px 0 18px;
+      gap: 14px;
+    }
+
+    .orb{
+      width: 92px;
+      aspect-ratio:1;
+      border-radius:999px;
+      position:relative;
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255,255,255,.35), transparent 34%),
+        radial-gradient(circle at 55% 60%, rgba(106,168,255,.22), transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,.10), rgba(255,255,255,.04) 55%, rgba(0,0,0,.25) 100%);
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.03) inset,
+        0 24px 70px rgba(0,0,0,.55),
+        0 0 70px rgba(106,168,255,.16);
+      animation: orbPulse 9s ease-in-out infinite;
+      transform: translateZ(0);
+    }
+    .orb::after{
+      content:"";
+      position:absolute;
+      inset:-18px;
+      border-radius:999px;
+      background: radial-gradient(circle, rgba(106,168,255,.16), transparent 60%);
+      filter: blur(10px);
+      opacity:.55;
+      animation: aura 9s ease-in-out infinite;
+    }
+    @keyframes orbPulse{
+      0%,100%{ transform: scale(1); filter: saturate(100%); }
+      50%{ transform: scale(1.04); filter: saturate(118%); }
+    }
+    @keyframes aura{
+      0%,100%{ transform: scale(1); opacity:.42; }
+      50%{ transform: scale(1.12); opacity:.60; }
+    }
+
+    h1{
+      margin: 8px 0 0;
+      font-family: var(--serif);
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-size: clamp(22px, 3.2vw, 34px);
+    }
+
+    .tagline{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      letter-spacing: .06em;
+      text-transform: lowercase;
+    }
+
+    .statusRow{
+      margin-top: 14px;
+      display:flex;
+      gap: 18px;
+      flex-wrap:wrap;
+      justify-content:center;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted2);
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+    .led{
+      width:8px; height:8px; border-radius:999px;
+      background: rgba(255,255,255,.25);
+      box-shadow: 0 0 14px rgba(255,255,255,.12);
+    }
+    .led.on{
+      background: var(--accent);
+      box-shadow: 0 0 18px rgba(106,168,255,.55);
+    }
+
+    .ctaRow{
+      margin-top: 18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      appearance:none;
+      border:none;
+      cursor:pointer;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      padding: 14px 18px;
+      border-radius: 14px;
+      color: var(--text);
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      transition: transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+      outline: none;
+    }
+    .btn:hover{
+      background: rgba(255,255,255,.085);
+      border-color: rgba(106,168,255,.35);
+      box-shadow: 0 0 0 6px rgba(106,168,255,.08), 0 20px 70px rgba(0,0,0,.45);
+      transform: translateY(-1px);
+    }
+    .btn:active{ transform: translateY(0px) scale(.99); }
+    .btn:focus-visible{
+      box-shadow: 0 0 0 6px rgba(106,168,255,.18), 0 18px 60px rgba(0,0,0,.55);
+    }
+
+    .btn.ghost{
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.14);
+      color: var(--muted);
+    }
+    .btn.ghost:hover{
+      color: var(--text);
+      border-color: rgba(255,255,255,.22);
+      box-shadow: 0 0 0 6px rgba(255,255,255,.06);
+    }
+
+    /* Bottom micro footer */
+    .footer{
+      margin-top: 26px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      color: var(--muted2);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity:.9;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .footer a{
+      color: var(--muted2);
+      text-decoration:none;
+      border-bottom: 1px solid transparent;
+      padding-bottom:2px;
+      transition: color .2s ease, border-color .2s ease;
+    }
+    .footer a:hover{
+      color: var(--text);
+      border-color: rgba(106,168,255,.35);
+    }
+
+    /* Responsive */
+    @media (max-width:560px){
+      .frame{ padding: 28px 20px 22px; }
+      .topbar{ margin-bottom: 22px; }
+      .nav{ gap:8px; }
+      .nav a{ padding:8px 8px; }
+      .footer{ flex-direction:column; align-items:flex-start; }
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      .orb, .orb::after, .grain{ animation:none !important; }
+      .btn{ transition:none; }
+      body{ overflow:auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="grid" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <section class="frame" aria-label="Portfolio entry screen">
+      <header class="topbar">
+        <div class="sig">
+          <span class="dot" aria-hidden="true"></span>
+          <span>NODE // JZ</span>
+        </div>
+        <nav class="nav" aria-label="Primary">
+          <a href="#about">ABOUT</a>
+          <a href="#projects">PROJECTS</a>
+          <a href="#contact">CONTACT</a>
+        </nav>
+      </header>
+
+      <div class="hero">
+        <div class="orb" role="img" aria-label="Seeing orb"></div>
+
+        <h1>JACOB ZIOLKOWSKI</h1>
+        <p class="tagline">systems • perception • build</p>
+
+        <div class="statusRow" aria-label="System status">
+          <div class="pill"><span class="led on" aria-hidden="true"></span><span id="statusText">STATUS: ACTIVE</span></div>
+          <div class="pill"><span class="led on" aria-hidden="true"></span><span id="signalText">SIGNAL: STABLE</span></div>
+          <div class="pill"><span class="led" aria-hidden="true"></span><span id="modeText">MODE: SILENT</span></div>
+        </div>
+
+        <div class="ctaRow">
+          <button class="btn" id="enterBtn" type="button">ENTER SYSTEM</button>
+          <button class="btn ghost" id="scanBtn" type="button">RUN SCAN</button>
+        </div>
+      </div>
+
+      <footer class="footer" aria-label="Footer">
+        <div id="stamp">UPTIME: 00:00:00</div>
+        <div>
+          <a href="mailto:you@domain.com">MAIL</a> &nbsp;·&nbsp;
+          <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LINKEDIN</a> &nbsp;·&nbsp;
+          <a href="https://github.com/" target="_blank" rel="noreferrer">GITHUB</a>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    // Simple "system" behavior: uptime + scan effect + enter placeholder
+    const pad = (n) => String(n).padStart(2, "0");
+    const start = Date.now();
+
+    const stamp = document.getElementById("stamp");
+    const statusText = document.getElementById("statusText");
+    const signalText = document.getElementById("signalText");
+    const modeText = document.getElementById("modeText");
+
+    function tick(){
+      const s = Math.floor((Date.now() - start)/1000);
+      const hh = Math.floor(s/3600);
+      const mm = Math.floor((s%3600)/60);
+      const ss = s%60;
+      stamp.textContent = `UPTIME: ${pad(hh)}:${pad(mm)}:${pad(ss)}`;
+    }
+    setInterval(tick, 1000); tick();
+
+    // Fake scan: toggles signal/mode briefly
+    const scanBtn = document.getElementById("scanBtn");
+    scanBtn.addEventListener("click", () => {
+      scanBtn.disabled = true;
+      const prevSignal = signalText.textContent;
+      const prevMode = modeText.textContent;
+
+      signalText.textContent = "SIGNAL: SCANNING";
+      modeText.textContent = "MODE: WATCHING";
+
+      let i = 0;
+      const steps = ["SCANNING.", "SCANNING..", "SCANNING..."];
+      const anim = setInterval(() => {
+        signalText.textContent = `SIGNAL: ${steps[i % steps.length]}`;
+        i++;
+      }, 350);
+
+      setTimeout(() => {
+        clearInterval(anim);
+        signalText.textContent = prevSignal;
+        modeText.textContent = prevMode;
+        scanBtn.disabled = false;
+      }, 2400);
+    });
+
+    // Enter: scroll to a placeholder anchor (you'll replace with real sections)
+    const enterBtn = document.getElementById("enterBtn");
+    enterBtn.addEventListener("click", () => {
+      // For now: subtle feedback
+      statusText.textContent = "STATUS: AUTHORIZED";
+      setTimeout(() => statusText.textContent = "STATUS: ACTIVE", 1600);
+
+      // If you add sections later, this will jump:
+      // location.hash = "#projects";
+    });
+
+    // Keyboard polish: Enter triggers enterBtn when focused anywhere
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && document.activeElement === document.body) {
+        enterBtn.click();
+      }
+    });
+  </script>
+</body>
+</html>
