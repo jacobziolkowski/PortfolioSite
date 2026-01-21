@@ -3,28 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Jacob Ziolkowski — System</title>
-  <meta name="description" content="A dark-mode, surveillance-Apple aesthetic portfolio entry screen." />
+  <title>Jacob — Cyberpunk Split Portfolio</title>
   <style>
     :root{
-      /* Obsidian palette */
-      --bg0:#0b0b0d;
-      --bg1:#101014;
+      /* Inspired by your screenshot */
+      --bg0:#07080A;
+      --bg1:#0B0D10;
       --panel: rgba(255,255,255,.06);
       --panel2: rgba(255,255,255,.10);
-      --text:#ededed;
-      --muted: rgba(237,237,237,.72);
-      --muted2: rgba(237,237,237,.52);
+      --border: rgba(255,255,255,.12);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.64);
+      --muted2: rgba(255,255,255,.46);
 
-      /* Pick ONE accent */
-      --accent:#6aa8ff; /* cold blue */
-      /* --accent:#ff9a6a; */ /* ember */
+      --accent:#B6FF2E;        /* neon lime */
+      --accent2:#9BEA20;       /* deeper lime */
+      --shadow: 0 24px 70px rgba(0,0,0,.55);
 
-      --radius: 18px;
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius: 22px;
+      --radiusSm: 14px;
+
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Garamond, serif;
+      --sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial;
     }
 
     *{ box-sizing:border-box; }
@@ -34,401 +34,581 @@
       color:var(--text);
       font-family:var(--sans);
       background:
-        radial-gradient(1200px 700px at 50% 35%, rgba(255,255,255,.06), transparent 60%),
-        radial-gradient(900px 500px at 15% 80%, rgba(106,168,255,.06), transparent 65%),
-        radial-gradient(900px 500px at 85% 15%, rgba(106,168,255,.04), transparent 65%),
+        radial-gradient(1200px 700px at 25% 10%, rgba(182,255,46,.10), transparent 60%),
+        radial-gradient(1000px 650px at 80% 40%, rgba(182,255,46,.05), transparent 65%),
         linear-gradient(180deg, var(--bg1), var(--bg0));
-      overflow:hidden;
     }
 
-    /* Subtle film grain (no image needed) */
-    .grain{
-      pointer-events:none;
-      position:fixed;
-      inset:-40%;
-      opacity:.12;
-      mix-blend-mode:overlay;
-      background-image:
-        repeating-linear-gradient(0deg, rgba(255,255,255,.02), rgba(255,255,255,.02) 1px, transparent 1px, transparent 2px),
-        repeating-linear-gradient(90deg, rgba(0,0,0,.03), rgba(0,0,0,.03) 1px, transparent 1px, transparent 3px);
-      filter: contrast(120%);
-      animation: grainShift 7s steps(10) infinite;
-      transform: translate3d(0,0,0);
-    }
-    @keyframes grainShift{
-      0%{ transform:translate(-2%, -2%) rotate(0.3deg); }
-      25%{ transform:translate(2%, -1%) rotate(-0.2deg); }
-      50%{ transform:translate(1%, 2%) rotate(0.2deg); }
-      75%{ transform:translate(-1%, 1%) rotate(-0.3deg); }
-      100%{ transform:translate(-2%, -2%) rotate(0.3deg); }
-    }
-
-    /* Faint grid */
+    /* subtle grid like the reference */
     .grid{
       pointer-events:none;
-      position:fixed;
-      inset:0;
+      position:fixed; inset:0;
       background:
-        linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-      background-size: 64px 64px;
-      opacity:.05;
-      mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 35%, rgba(0,0,0,.25) 70%, rgba(0,0,0,0) 100%);
+        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 72px 72px;
+      opacity:.06;
+      mask-image: radial-gradient(ellipse at 40% 30%, rgba(0,0,0,1) 35%, rgba(0,0,0,.35) 75%, rgba(0,0,0,0) 100%);
     }
 
-    /* Layout */
-    .wrap{
+    /* neon edge strip like the screenshot */
+    .edge{
+      position:fixed; inset:0 auto 0 0;
+      width: 18px;
+      background: linear-gradient(180deg, var(--accent), rgba(182,255,46,.65));
+      box-shadow: 0 0 60px rgba(182,255,46,.30);
+      opacity:.95;
+      z-index: 2;
+    }
+
+    /* Split layout */
+    .shell{
+      position:relative;
+      z-index:3;
       height:100%;
       display:grid;
-      place-items:center;
-      padding:28px;
+      grid-template-columns: minmax(520px, 1fr) 360px;
+      gap: 18px;
+      padding: 22px 22px 22px 40px; /* space for neon strip */
+      max-width: 1280px;
+      margin: 0 auto;
     }
 
-    .frame{
-      width:min(860px, 100%);
+    /* LEFT: main */
+    .main{
       border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      background: rgba(0,0,0,.18);
       border: 1px solid rgba(255,255,255,.10);
       box-shadow: var(--shadow);
-      position:relative;
-      overflow:hidden;
-      padding: 44px 44px 36px;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      overflow: hidden;
+      display:flex;
+      flex-direction:column;
+      min-height: 0; /* allow scroll container */
     }
 
-    /* top nav (minimal) */
-    .topbar{
+    .mainHeader{
       display:flex;
-      align-items:center;
       justify-content:space-between;
-      gap:16px;
-      margin-bottom: 34px;
-    }
-    .sig{
-      display:flex; align-items:center; gap:10px;
-      font-family:var(--mono);
-      font-size:12px;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:var(--muted2);
-    }
-    .dot{
-      width:8px; height:8px; border-radius:999px;
-      background: var(--accent);
-      box-shadow: 0 0 18px rgba(106,168,255,.55);
-      opacity:.85;
-    }
-    .nav{
-      display:flex; gap:18px;
-      font-family:var(--mono);
-      font-size:12px;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-    }
-    .nav a{
-      color:var(--muted2);
-      text-decoration:none;
-      padding:8px 10px;
-      border-radius: 12px;
-      transition: color .2s ease, background .2s ease;
-    }
-    .nav a:hover{
-      color:var(--text);
-      background: rgba(255,255,255,.06);
-    }
-
-    /* hero core */
-    .hero{
-      display:grid;
-      place-items:center;
-      text-align:center;
-      padding: 10px 0 18px;
-      gap: 14px;
-    }
-
-    .orb{
-      width: 92px;
-      aspect-ratio:1;
-      border-radius:999px;
-      position:relative;
-      background:
-        radial-gradient(circle at 35% 30%, rgba(255,255,255,.35), transparent 34%),
-        radial-gradient(circle at 55% 60%, rgba(106,168,255,.22), transparent 45%),
-        radial-gradient(circle at 50% 50%, rgba(255,255,255,.10), rgba(255,255,255,.04) 55%, rgba(0,0,0,.25) 100%);
-      border: 1px solid rgba(255,255,255,.18);
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,.03) inset,
-        0 24px 70px rgba(0,0,0,.55),
-        0 0 70px rgba(106,168,255,.16);
-      animation: orbPulse 9s ease-in-out infinite;
-      transform: translateZ(0);
-    }
-    .orb::after{
-      content:"";
-      position:absolute;
-      inset:-18px;
-      border-radius:999px;
-      background: radial-gradient(circle, rgba(106,168,255,.16), transparent 60%);
-      filter: blur(10px);
-      opacity:.55;
-      animation: aura 9s ease-in-out infinite;
-    }
-    @keyframes orbPulse{
-      0%,100%{ transform: scale(1); filter: saturate(100%); }
-      50%{ transform: scale(1.04); filter: saturate(118%); }
-    }
-    @keyframes aura{
-      0%,100%{ transform: scale(1); opacity:.42; }
-      50%{ transform: scale(1.12); opacity:.60; }
-    }
-
-    h1{
-      margin: 8px 0 0;
-      font-family: var(--serif);
-      font-weight: 600;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      font-size: clamp(22px, 3.2vw, 34px);
-    }
-
-    .tagline{
-      margin:0;
-      color: var(--muted);
-      font-size: 14px;
-      letter-spacing: .06em;
-      text-transform: lowercase;
-    }
-
-    .statusRow{
-      margin-top: 14px;
-      display:flex;
-      gap: 18px;
-      flex-wrap:wrap;
-      justify-content:center;
-      font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--muted2);
-    }
-    .pill{
-      display:inline-flex;
       align-items:center;
-      gap:10px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
+      gap:16px;
+      padding: 18px 18px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
     }
-    .led{
-      width:8px; height:8px; border-radius:999px;
-      background: rgba(255,255,255,.25);
-      box-shadow: 0 0 14px rgba(255,255,255,.12);
+
+    .brand{
+      display:flex; flex-direction:column; gap:2px;
     }
-    .led.on{
-      background: var(--accent);
-      box-shadow: 0 0 18px rgba(106,168,255,.55);
+    .brand .name{
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size: 14px;
+    }
+    .brand .sub{
+      font-family:var(--mono);
+      color:var(--muted2);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size: 11px;
     }
 
     .ctaRow{
-      margin-top: 18px;
       display:flex;
-      justify-content:center;
-      gap:12px;
+      gap:10px;
       flex-wrap:wrap;
+      justify-content:flex-end;
     }
 
     .btn{
       appearance:none;
       border:none;
       cursor:pointer;
+      padding: 10px 12px;
+      border-radius: 12px;
       font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: .16em;
+      font-size: 11px;
+      letter-spacing: .14em;
       text-transform: uppercase;
-      padding: 14px 18px;
-      border-radius: 14px;
       color: var(--text);
       background: rgba(255,255,255,.06);
       border: 1px solid rgba(255,255,255,.12);
-      transition: transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
-      outline: none;
+      transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+      white-space:nowrap;
     }
     .btn:hover{
-      background: rgba(255,255,255,.085);
-      border-color: rgba(106,168,255,.35);
-      box-shadow: 0 0 0 6px rgba(106,168,255,.08), 0 20px 70px rgba(0,0,0,.45);
       transform: translateY(-1px);
+      border-color: rgba(182,255,46,.55);
+      box-shadow: 0 0 0 6px rgba(182,255,46,.08);
     }
-    .btn:active{ transform: translateY(0px) scale(.99); }
-    .btn:focus-visible{
-      box-shadow: 0 0 0 6px rgba(106,168,255,.18), 0 18px 60px rgba(0,0,0,.55);
-    }
-
-    .btn.ghost{
-      background: transparent;
-      border: 1px solid rgba(255,255,255,.14);
-      color: var(--muted);
-    }
-    .btn.ghost:hover{
-      color: var(--text);
-      border-color: rgba(255,255,255,.22);
-      box-shadow: 0 0 0 6px rgba(255,255,255,.06);
+    .btn.primary{
+      background: rgba(182,255,46,.14);
+      border-color: rgba(182,255,46,.55);
     }
 
-    /* Bottom micro footer */
-    .footer{
-      margin-top: 26px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      color: var(--muted2);
+    .scroll{
+      overflow:auto;
+      padding: 18px;
+      min-height: 0;
+    }
+
+    .hero{
+      border-radius: var(--radius);
+      border: 1px solid rgba(182,255,46,.22);
+      background:
+        radial-gradient(900px 420px at 30% 10%, rgba(182,255,46,.14), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      padding: 22px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:after{
+      content:"";
+      position:absolute; inset:-1px;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(255,255,255,.05),
+        rgba(255,255,255,.05) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+      opacity:.05;
+      pointer-events:none;
+    }
+
+    .hero h1{
+      margin:0 0 10px;
+      font-size: clamp(26px, 3vw, 40px);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .hero p{
+      margin:0 0 14px;
+      color:var(--muted);
+      max-width: 60ch;
+      line-height:1.45;
+    }
+    .hero .chips{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top: 12px;
+    }
+    .chip{
+      border-radius: 999px;
+      padding: 8px 10px;
       font-family: var(--mono);
       font-size: 11px;
-      letter-spacing: .12em;
+      letter-spacing:.12em;
       text-transform: uppercase;
-      opacity:.9;
-      padding-top: 22px;
-      border-top: 1px solid rgba(255,255,255,.08);
+      color: var(--muted);
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.10);
     }
-    .footer a{
+    .chip.hot{
+      color: rgba(182,255,46,.95);
+      border-color: rgba(182,255,46,.45);
+      background: rgba(182,255,46,.10);
+      box-shadow: 0 0 0 6px rgba(182,255,46,.06);
+    }
+
+    .section{
+      margin-top: 16px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      padding: 18px;
+    }
+
+    .section h2{
+      margin:0 0 10px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(182,255,46,.90);
+    }
+    .section .meta{
+      font-family: var(--mono);
       color: var(--muted2);
-      text-decoration:none;
-      border-bottom: 1px solid transparent;
-      padding-bottom:2px;
-      transition: color .2s ease, border-color .2s ease;
+      font-size: 11px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      margin-bottom: 10px;
     }
-    .footer a:hover{
+
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .card{
+      border-radius: var(--radiusSm);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      padding: 12px;
+      min-height: 90px;
+    }
+    .card .t{
+      font-weight:700;
+      letter-spacing:.02em;
+      margin-bottom:6px;
+    }
+    .card .d{
+      color:var(--muted);
+      font-size: 13px;
+      line-height:1.35;
+    }
+
+    /* RIGHT: command panel */
+    .side{
+      border-radius: var(--radius);
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height:0;
+      position: sticky;
+      top: 22px;
+      height: calc(100vh - 44px);
+    }
+
+    .sideHeader{
+      padding: 16px 16px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
+    .sideHeader .title{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color: rgba(182,255,46,.90);
+    }
+    .badge{
+      border-radius: 999px;
+      padding: 6px 9px;
+      font-size: 10px;
+      letter-spacing:.14em;
+      color: rgba(182,255,46,.95);
+      border: 1px solid rgba(182,255,46,.45);
+      background: rgba(182,255,46,.10);
+    }
+
+    .tabs{
+      padding: 12px;
+      display:grid;
+      gap:10px;
+    }
+    .tab{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      width:100%;
+      text-align:left;
+      cursor:pointer;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
       color: var(--text);
-      border-color: rgba(106,168,255,.35);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      transition: border-color .2s ease, box-shadow .2s ease, transform .15s ease;
+    }
+    .tab:hover{
+      transform: translateY(-1px);
+      border-color: rgba(182,255,46,.45);
+      box-shadow: 0 0 0 6px rgba(182,255,46,.06);
+    }
+    .tab.active{
+      border-color: rgba(182,255,46,.65);
+      background: rgba(182,255,46,.10);
+    }
+    .tab .k{
+      color: var(--muted2);
+      letter-spacing:.18em;
+      font-size: 10px;
     }
 
-    /* Responsive */
-    @media (max-width:560px){
-      .frame{ padding: 28px 20px 22px; }
-      .topbar{ margin-bottom: 22px; }
-      .nav{ gap:8px; }
-      .nav a{ padding:8px 8px; }
-      .footer{ flex-direction:column; align-items:flex-start; }
+    .sideBody{
+      overflow:auto;
+      padding: 0 12px 12px;
+      min-height:0;
     }
 
-    /* Reduce motion */
-    @media (prefers-reduced-motion: reduce){
-      .orb, .orb::after, .grain{ animation:none !important; }
-      .btn{ transition:none; }
-      body{ overflow:auto; }
+    .widget{
+      margin-top: 12px;
+      border-radius: var(--radiusSm);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      padding: 12px;
+    }
+    .widget .wTitle{
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .pill{
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color: rgba(182,255,46,.92);
+      border: 1px solid rgba(182,255,46,.45);
+      background: rgba(182,255,46,.10);
+      padding: 6px 8px;
+      border-radius: 999px;
+    }
+    .kv{
+      display:grid;
+      gap:8px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.35;
+    }
+    .kv b{ color: var(--text); }
+
+    /* anchor offsets */
+    .anchor{ scroll-margin-top: 18px; }
+
+    /* Responsive: stack columns */
+    @media (max-width: 980px){
+      .shell{ grid-template-columns: 1fr; }
+      .side{ position:relative; top:auto; height:auto; }
     }
   </style>
 </head>
 <body>
-  <div class="grain" aria-hidden="true"></div>
+  <div class="edge" aria-hidden="true"></div>
   <div class="grid" aria-hidden="true"></div>
 
-  <main class="wrap">
-    <section class="frame" aria-label="Portfolio entry screen">
-      <header class="topbar">
-        <div class="sig">
-          <span class="dot" aria-hidden="true"></span>
-          <span>NODE // JZ</span>
+  <div class="shell">
+    <!-- LEFT -->
+    <section class="main" aria-label="Main content">
+      <header class="mainHeader">
+        <div class="brand">
+          <div class="name">JACOB ZIOLKOWSKI</div>
+          <div class="sub">NEON MINIMAL // PORTFOLIO NODE</div>
         </div>
-        <nav class="nav" aria-label="Primary">
-          <a href="#about">ABOUT</a>
-          <a href="#projects">PROJECTS</a>
-          <a href="#contact">CONTACT</a>
-        </nav>
+        <div class="ctaRow">
+          <button class="btn primary" id="downloadResume" type="button">DOWNLOAD RESUME</button>
+          <button class="btn" id="emailBtn" type="button">CONTACT</button>
+        </div>
       </header>
 
-      <div class="hero">
-        <div class="orb" role="img" aria-label="Seeing orb"></div>
-
-        <h1>JACOB ZIOLKOWSKI</h1>
-        <p class="tagline">systems • perception • build</p>
-
-        <div class="statusRow" aria-label="System status">
-          <div class="pill"><span class="led on" aria-hidden="true"></span><span id="statusText">STATUS: ACTIVE</span></div>
-          <div class="pill"><span class="led on" aria-hidden="true"></span><span id="signalText">SIGNAL: STABLE</span></div>
-          <div class="pill"><span class="led" aria-hidden="true"></span><span id="modeText">MODE: SILENT</span></div>
+      <div class="scroll" id="mainScroll">
+        <div class="hero anchor" id="overview">
+          <h1>BUILDING SYSTEMS THAT FEEL ALIVE.</h1>
+          <p>
+            Cyberpunk energy, consistent structure. Projects, experience, and a clean story—without losing the vibe.
+          </p>
+          <div class="chips">
+            <span class="chip hot">ACCENT: NEON LIME</span>
+            <span class="chip">MODE: MINIMAL</span>
+            <span class="chip">SIGNAL: STABLE</span>
+          </div>
         </div>
 
-        <div class="ctaRow">
-          <button class="btn" id="enterBtn" type="button">ENTER SYSTEM</button>
-          <button class="btn ghost" id="scanBtn" type="button">RUN SCAN</button>
+        <div class="section anchor" id="projects">
+          <div class="meta">MODULE</div>
+          <h2>PROJECTS</h2>
+          <div class="cards">
+            <div class="card">
+              <div class="t">Health Data Dashboard</div>
+              <div class="d">Visual analytics + clean UX. (Put 1–2 lines here.)</div>
+            </div>
+            <div class="card">
+              <div class="t">Robot Build</div>
+              <div class="d">Raspberry Pi system, cameras, motion control. (1–2 lines.)</div>
+            </div>
+            <div class="card">
+              <div class="t">Local AI Advisor</div>
+              <div class="d">Private on-device chatbot for students. (1–2 lines.)</div>
+            </div>
+            <div class="card">
+              <div class="t">Media Server</div>
+              <div class="d">Self-hosted “personal Netflix” via Flask/FastAPI. (1–2 lines.)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section anchor" id="about">
+          <div class="meta">PROFILE</div>
+          <h2>ABOUT</h2>
+          <p style="margin:0;color:var(--muted);line-height:1.5;">
+            Senior IT student building practical, polished systems—health IT, robotics, and tools that actually ship.
+            (Replace with your final story.)
+          </p>
+        </div>
+
+        <div class="section anchor" id="resume">
+          <div class="meta">DOCUMENT</div>
+          <h2>RESUME</h2>
+          <p style="margin:0;color:var(--muted);line-height:1.5;">
+            Put a short resume summary here + a download link.
+          </p>
+        </div>
+
+        <div class="section anchor" id="experience">
+          <div class="meta">LOG</div>
+          <h2>EXPERIENCE</h2>
+          <p style="margin:0;color:var(--muted);line-height:1.5;">
+            FSU IT roles, support → engineering, and the highlights you want recruiters to notice.
+          </p>
+        </div>
+
+        <div class="section anchor" id="skills">
+          <div class="meta">STACK</div>
+          <h2>SKILLS</h2>
+          <p style="margin:0;color:var(--muted);line-height:1.5;">
+            Networking, scripting, Linux, cloud basics, dashboards, hardware tinkering… keep it tight.
+          </p>
+        </div>
+
+        <div class="section anchor" id="contact">
+          <div class="meta">CHANNEL</div>
+          <h2>CONTACT</h2>
+          <p style="margin:0;color:var(--muted);line-height:1.5;">
+            Email + LinkedIn + GitHub. Simple.
+          </p>
+        </div>
+
+        <div style="height: 18px;"></div>
+      </div>
+    </section>
+
+    <!-- RIGHT -->
+    <aside class="side" aria-label="Right command panel">
+      <div class="sideHeader">
+        <div class="title">
+          CONTROL PANEL
+          <span class="badge" id="uptime">UPTIME 00:00</span>
         </div>
       </div>
 
-      <footer class="footer" aria-label="Footer">
-        <div id="stamp">UPTIME: 00:00:00</div>
-        <div>
-          <a href="mailto:you@domain.com">MAIL</a> &nbsp;·&nbsp;
-          <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LINKEDIN</a> &nbsp;·&nbsp;
-          <a href="https://github.com/" target="_blank" rel="noreferrer">GITHUB</a>
+      <div class="tabs" role="tablist" aria-label="Navigation tabs">
+        <button class="tab active" data-target="overview" role="tab">
+          OVERVIEW <span class="k">01</span>
+        </button>
+        <button class="tab" data-target="projects" role="tab">
+          PROJECTS <span class="k">02</span>
+        </button>
+        <button class="tab" data-target="about" role="tab">
+          ABOUT <span class="k">03</span>
+        </button>
+        <button class="tab" data-target="resume" role="tab">
+          RESUME <span class="k">04</span>
+        </button>
+        <button class="tab" data-target="experience" role="tab">
+          EXPERIENCE <span class="k">05</span>
+        </button>
+        <button class="tab" data-target="skills" role="tab">
+          SKILLS <span class="k">06</span>
+        </button>
+        <button class="tab" data-target="contact" role="tab">
+          CONTACT <span class="k">07</span>
+        </button>
+      </div>
+
+      <div class="sideBody">
+        <div class="widget">
+          <div class="wTitle">
+            STATUS
+            <span class="pill">ACTIVE</span>
+          </div>
+          <div class="kv">
+            <div><b>Signal:</b> Stable</div>
+            <div><b>Theme:</b> Neon Minimal</div>
+            <div><b>Accent:</b> Lime</div>
+          </div>
         </div>
-      </footer>
-    </section>
-  </main>
+
+        <div class="widget">
+          <div class="wTitle">QUICK LINKS</div>
+          <div class="kv">
+            <div><b>GitHub:</b> /yourhandle</div>
+            <div><b>LinkedIn:</b> /in/you</div>
+            <div><b>Email:</b> you@domain.com</div>
+          </div>
+        </div>
+
+        <div class="widget">
+          <div class="wTitle">NOW BUILDING</div>
+          <div class="kv">
+            <div>Replace these widgets with real metrics: # projects, latest update, etc.</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
 
   <script>
-    // Simple "system" behavior: uptime + scan effect + enter placeholder
-    const pad = (n) => String(n).padStart(2, "0");
+    // Uptime (right badge)
     const start = Date.now();
+    const uptimeEl = document.getElementById("uptime");
+    const pad = (n) => String(n).padStart(2,"0");
+    setInterval(() => {
+      const s = Math.floor((Date.now() - start) / 1000);
+      const mm = Math.floor(s / 60);
+      const ss = s % 60;
+      uptimeEl.textContent = `UPTIME ${pad(mm)}:${pad(ss)}`;
+    }, 1000);
 
-    const stamp = document.getElementById("stamp");
-    const statusText = document.getElementById("statusText");
-    const signalText = document.getElementById("signalText");
-    const modeText = document.getElementById("modeText");
+    // Tab click -> scroll to section inside left scroll container
+    const scrollEl = document.getElementById("mainScroll");
+    const tabs = Array.from(document.querySelectorAll(".tab"));
+    tabs.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.dataset.target;
+        const target = document.getElementById(id);
+        if (!target) return;
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
 
-    function tick(){
-      const s = Math.floor((Date.now() - start)/1000);
-      const hh = Math.floor(s/3600);
-      const mm = Math.floor((s%3600)/60);
-      const ss = s%60;
-      stamp.textContent = `UPTIME: ${pad(hh)}:${pad(mm)}:${pad(ss)}`;
-    }
-    setInterval(tick, 1000); tick();
-
-    // Fake scan: toggles signal/mode briefly
-    const scanBtn = document.getElementById("scanBtn");
-    scanBtn.addEventListener("click", () => {
-      scanBtn.disabled = true;
-      const prevSignal = signalText.textContent;
-      const prevMode = modeText.textContent;
-
-      signalText.textContent = "SIGNAL: SCANNING";
-      modeText.textContent = "MODE: WATCHING";
-
-      let i = 0;
-      const steps = ["SCANNING.", "SCANNING..", "SCANNING..."];
-      const anim = setInterval(() => {
-        signalText.textContent = `SIGNAL: ${steps[i % steps.length]}`;
-        i++;
-      }, 350);
-
-      setTimeout(() => {
-        clearInterval(anim);
-        signalText.textContent = prevSignal;
-        modeText.textContent = prevMode;
-        scanBtn.disabled = false;
-      }, 2400);
+        tabs.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+      });
     });
 
-    // Enter: scroll to a placeholder anchor (you'll replace with real sections)
-    const enterBtn = document.getElementById("enterBtn");
-    enterBtn.addEventListener("click", () => {
-      // For now: subtle feedback
-      statusText.textContent = "STATUS: AUTHORIZED";
-      setTimeout(() => statusText.textContent = "STATUS: ACTIVE", 1600);
+    // Highlight active tab on scroll (simple + reliable)
+    const sectionIds = tabs.map(t => t.dataset.target);
+    const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
 
-      // If you add sections later, this will jump:
-      // location.hash = "#projects";
-    });
+    function updateActiveTab() {
+      const top = scrollEl.scrollTop;
+      let bestId = sections[0]?.id || "overview";
+      let bestDist = Infinity;
 
-    // Keyboard polish: Enter triggers enterBtn when focused anywhere
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" && document.activeElement === document.body) {
-        enterBtn.click();
+      for (const sec of sections) {
+        const dist = Math.abs(sec.offsetTop - top - 10);
+        if (dist < bestDist) { bestDist = dist; bestId = sec.id; }
       }
+
+      tabs.forEach(b => b.classList.toggle("active", b.dataset.target === bestId));
+    }
+    scrollEl.addEventListener("scroll", () => requestAnimationFrame(updateActiveTab));
+    updateActiveTab();
+
+    // Header buttons (edit these)
+    document.getElementById("downloadResume").addEventListener("click", () => {
+      // TODO: replace with actual resume file once you add it
+      alert("Add your resume PDF to the repo, then wire this button to it.");
+    });
+    document.getElementById("emailBtn").addEventListener("click", () => {
+      location.hash = "#contact";
+      document.getElementById("contact").scrollIntoView({ behavior: "smooth", block: "start" });
     });
   </script>
 </body>
