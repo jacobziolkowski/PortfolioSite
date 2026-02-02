@@ -22,45 +22,6 @@
       --sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
     }
 
-    /* Wireframe mode overrides */
-    body.wireframe-mode {
-      background: var(--bg0) !important;
-    }
-    body.wireframe-mode .grid,
-    body.wireframe-mode .edge { opacity: 0; }
-    body.wireframe-mode .edge { background: var(--accent); box-shadow: none; }
-    body.wireframe-mode .main,
-    body.wireframe-mode .side,
-    body.wireframe-mode .hero,
-    body.wireframe-mode .section,
-    body.wireframe-mode .card,
-    body.wireframe-mode .widget,
-    body.wireframe-mode .tab {
-      background: var(--bg1) !important;
-      box-shadow: none !important;
-    }
-    body.wireframe-mode .main,
-    body.wireframe-mode .side,
-    body.wireframe-mode .hero,
-    body.wireframe-mode .section,
-    body.wireframe-mode .card,
-    body.wireframe-mode .widget,
-    body.wireframe-mode .tab,
-    body.wireframe-mode .headshot-placeholder,
-    body.wireframe-mode .thumb-placeholder,
-    body.wireframe-mode .video-placeholder {
-      border: 2px solid rgba(182,255,46,.6) !important;
-    }
-    body.wireframe-mode .placeholder-label {
-      display: block !important;
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-top: 4px;
-    }
-
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; }
     body {
@@ -366,32 +327,6 @@
       background: rgba(182,255,46,.1);
     }
 
-    .wireframe-toggle-wrap {
-      padding: 0 14px 12px;
-    }
-    .wireframe-toggle {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.04);
-      color: var(--text);
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: border-color .2s ease, box-shadow .2s ease;
-    }
-    .wireframe-toggle:hover {
-      border-color: rgba(182,255,46,.4);
-      box-shadow: 0 0 10px rgba(182,255,46,.06);
-    }
-    .wireframe-toggle.on {
-      border-color: var(--accent);
-      background: rgba(182,255,46,.12);
-    }
-
     @media (max-width: 900px) {
       .shell {
         grid-template-columns: 1fr;
@@ -524,9 +459,6 @@
         <button type="button" class="tab" data-target="portfolio" role="tab">Portfolio</button>
       </nav>
 
-      <div class="wireframe-toggle-wrap">
-        <button type="button" class="wireframe-toggle" id="wireframeToggle" aria-pressed="false">Wireframe Mode: OFF</button>
-      </div>
     </aside>
   </div>
 
@@ -564,15 +496,6 @@
       }
       scrollEl.addEventListener("scroll", function () { requestAnimationFrame(updateActiveTab); });
       updateActiveTab();
-
-      // Wireframe Mode toggle
-      var toggleBtn = document.getElementById("wireframeToggle");
-      toggleBtn.addEventListener("click", function () {
-        var on = document.body.classList.toggle("wireframe-mode");
-        toggleBtn.classList.toggle("on", on);
-        toggleBtn.setAttribute("aria-pressed", on);
-        toggleBtn.textContent = "Wireframe Mode: " + (on ? "ON" : "OFF");
-      });
     })();
   </script>
 </body>
