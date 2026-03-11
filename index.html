@@ -61,7 +61,7 @@
     .shell {
       position: relative;
       z-index: 3;
-      min-height: 100%;
+      height: 100%;
       display: grid;
       grid-template-columns: minmax(0, 1fr) 320px;
       gap: 16px;
@@ -84,6 +84,7 @@
     .scroll {
       overflow: auto;
       padding: 20px;
+      flex: 1;
       min-height: 0;
     }
 
@@ -249,6 +250,13 @@
     }
     .project-card .links a { color: var(--accent); text-decoration: none; }
     .project-card .links a:hover { text-decoration: underline; }
+    .project-card .skills-list {
+      margin: 8px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
     .video-placeholder {
       margin-top: 10px;
       aspect-ratio: 16/9;
@@ -279,32 +287,6 @@
       height: fit-content;
       max-height: calc(100vh - 40px);
     }
-
-    .url-row {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(255,255,255,.02);
-    }
-    .url-row label {
-      display: block;
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--muted2);
-      margin-bottom: 6px;
-    }
-    .url-row input {
-      width: 100%;
-      padding: 8px 10px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: rgba(0,0,0,.3);
-      color: var(--text);
-      font-family: var(--mono);
-      font-size: 11px;
-    }
-    .url-row input::placeholder { color: var(--muted2); }
 
     .tabs {
       padding: 14px;
@@ -433,9 +415,13 @@
               <div class="thumb-placeholder">[Web Pages] <span class="placeholder-label">Thumbnail</span></div>
               <div class="body">
                 <div class="title">FSU ITS Web Content Management</div>
-                <p class="desc">Maintained and updated standards-compliant university web pages, ensuring accurate, accessible content and consistent branding across departments.</p>
-                <div class="links"><a href="#experience">More in Experience</a></div>
-                <div class="video-placeholder">[Workflow &amp; QA overview] <span class="placeholder-label">Demo video</span></div>
+                <p class="desc">Maintained and updated standards-compliant university web pages, ensuring accurate, accessible content and consistent branding across departments. Translated non-technical stakeholder requests into structured CMS updates and documented repeatable workflows to improve team consistency.</p>
+                <ul class="skills-list">
+                  <li>CMS content management</li>
+                  <li>Accessibility (WCAG basics)</li>
+                  <li>Cross-functional communication</li>
+                  <li>Documentation &amp; knowledge bases</li>
+                </ul>
               </div>
             </article>
 
@@ -443,18 +429,69 @@
               <div class="thumb-placeholder">[Support Tickets] <span class="placeholder-label">Thumbnail</span></div>
               <div class="body">
                 <div class="title">FSU CCI IT Helpdesk Support</div>
-                <p class="desc">Resolved Tier 1–2 support tickets, restored access to systems and software, and documented troubleshooting steps to strengthen the knowledge base.</p>
-                <div class="links"><a href="#experience">More in Experience</a></div>
+                <p class="desc">Resolved Tier 1–2 support tickets for students, faculty, and staff across Windows and macOS environments. Managed account access, software installations, and endpoint configuration while documenting recurring issues to strengthen the team knowledge base.</p>
+                <ul class="skills-list">
+                  <li>Troubleshooting (Windows &amp; macOS)</li>
+                  <li>Account management &amp; endpoint configuration</li>
+                  <li>Customer support &amp; de-escalation</li>
+                  <li>Documentation &amp; knowledge bases</li>
+                </ul>
               </div>
             </article>
 
             <article class="project-card">
-              <div class="thumb-placeholder">[Systems &amp; Process] <span class="placeholder-label">Thumbnail</span></div>
+              <div class="thumb-placeholder">[SkinSync] <span class="placeholder-label">Thumbnail</span></div>
               <div class="body">
-                <div class="title">Production Systems &amp; Troubleshooting Mindset</div>
-                <p class="desc">Demonstrated ability to operate in live, high-visibility environments, using structured troubleshooting, clear communication, and process improvements to keep teams productive.</p>
-                <div class="links"><a href="#experience">More in Experience</a></div>
-                <div class="video-placeholder">[Talk-through of problem-solving approach] <span class="placeholder-label">Demo video</span></div>
+                <div class="title">SkinSync App Prototype</div>
+                <p class="desc">A conceptual mobile health application designed to help individuals manage and track chronic skin conditions over time. As lead designer, I developed the UX flow, wireframes, and visual interface using an Apple-inspired minimalist aesthetic — prioritizing clarity and accessibility over visual complexity. The core challenge was presenting health data intuitively to non-technical users while remaining medically meaningful, requiring a careful balance of data density and visual simplicity informed by health informatics principles.</p>
+                <ul class="skills-list">
+                  <li>UX/UI design and wireframing (Figma)</li>
+                  <li>Health informatics and patient-facing data design</li>
+                  <li>User-centered design principles</li>
+                  <li>Visual hierarchy and accessible interface development</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="thumb-placeholder">[Portfolio Site] <span class="placeholder-label">Thumbnail</span></div>
+              <div class="body">
+                <div class="title">Interactive Resume Website</div>
+                <p class="desc">Designed and developed a personal web portfolio as a living, interactive representation of my professional identity. I handled the full scope — from information architecture and content strategy to front-end development in HTML, CSS, and JavaScript. A key challenge was organizing diverse content types into a cohesive user experience that communicates clearly at a glance, requiring me to think as both developer and content strategist.</p>
+                <ul class="skills-list">
+                  <li>Front-end web development (HTML, CSS, JavaScript)</li>
+                  <li>Information architecture and content strategy</li>
+                  <li>Personal branding and professional communication</li>
+                  <li>Project ownership and end-to-end execution</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="thumb-placeholder">[AI Workshop] <span class="placeholder-label">Thumbnail</span></div>
+              <div class="body">
+                <div class="title">ThinkAI / Canva AI Workshop Presentation</div>
+                <p class="desc">Designed and delivered a presentation to a student audience on the current landscape of artificial intelligence — covering core AI concepts, practical tools, and the implications of emerging technology in everyday and professional contexts. Using Canva and structured visual storytelling, I built a presentation that balanced depth with clarity, translating technically complex material into accessible, engaging content for an audience with varying levels of AI familiarity.</p>
+                <ul class="skills-list">
+                  <li>Technical communication and public presentation</li>
+                  <li>AI literacy and emerging technology awareness</li>
+                  <li>Visual content design (Canva)</li>
+                  <li>Audience analysis and instructional design</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="thumb-placeholder">[Documentation] <span class="placeholder-label">Thumbnail</span></div>
+              <div class="body">
+                <div class="title">Information Architecture &amp; Documentation Project</div>
+                <p class="desc">Focused on the structured organization of information systems — developing clear documentation, logical content hierarchies, and procedural guides for practical use. The work involved analyzing information flow within a system, identifying gaps or inefficiencies, and producing documentation that communicates complex processes for both technical and general audiences without sacrificing accuracy or usability for either group.</p>
+                <ul class="skills-list">
+                  <li>Information architecture and content organization</li>
+                  <li>Technical writing and procedural documentation</li>
+                  <li>Audience-aware communication design</li>
+                  <li>Analytical thinking and systems-level organization</li>
+                </ul>
               </div>
             </article>
           </div>
@@ -465,11 +502,6 @@
 
     <!-- RIGHT: control panel -->
     <aside class="side" aria-label="Control panel">
-      <div class="url-row">
-        <label for="wireframe-url">IR Wireframe URL:</label>
-        <input type="text" id="wireframe-url" placeholder="(paste GitHub Pages URL here)" />
-      </div>
-
       <nav class="tabs" role="tablist" aria-label="Sections">
         <button type="button" class="tab active" data-target="homepage" role="tab">Homepage</button>
         <button type="button" class="tab" data-target="experience" role="tab">Experience</button>
@@ -499,13 +531,14 @@
 
       // Update active tab on scroll
       function updateActiveTab() {
-        var top = scrollEl.scrollTop;
+        var containerTop = scrollEl.getBoundingClientRect().top;
         var bestId = sections[0] ? sections[0].id : "homepage";
-        var bestDist = Infinity;
-        for (var i = 0; i < sections.length; i++) {
-          var sec = sections[i];
-          var dist = Math.abs(sec.offsetTop - top - 20);
-          if (dist < bestDist) { bestDist = dist; bestId = sec.id; }
+        for (var i = sections.length - 1; i >= 0; i--) {
+          var secTop = sections[i].getBoundingClientRect().top - containerTop;
+          if (secTop <= 40) {
+            bestId = sections[i].id;
+            break;
+          }
         }
         tabs.forEach(function (b) {
           b.classList.toggle("active", b.getAttribute("data-target") === bestId);
