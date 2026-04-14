@@ -91,9 +91,8 @@
 
     /* ── Hero ────────────────────────────────────────────────────── */
     #homepage {
-      padding-top: 120px;
-      padding-bottom: 120px;
-      min-height: 100vh;
+      padding-top: 100px;
+      padding-bottom: 48px;
       display: flex;
       align-items: center;
     }
@@ -148,24 +147,59 @@
     }
 
     /* Headshot column */
-    .headshot-placeholder {
-      width: 200px;
-      height: 200px;
-      border-radius: 12px;
-      background: var(--card-dark);
+    .headshot-wrap {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
+      gap: 8px;
       flex-shrink: 0;
     }
-    .headshot-placeholder svg { opacity: 0.28; }
-    .headshot-placeholder span {
+    .headshot-img {
+      width: 260px;
+      height: 260px;
+      border-radius: 14px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    /* ── Jobs quote bar ─────────────────────────────────────────── */
+    .jobs-quote-bar {
+      background: var(--black);
+      padding: 48px 24px 56px;
+      display: flex;
+      justify-content: center;
+    }
+    .jobs-quote {
+      margin: 0;
+      text-align: center;
+    }
+    .jobs-quote p {
+      font-family: "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: -0.02em;
+      color: rgba(255,255,255,0.82);
+      margin: 0 0 10px;
+      line-height: 1.3;
+    }
+    .jobs-quote cite {
+      font-family: "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+    }
+
+    .headshot-disclaimer {
       font-family: var(--text);
-      font-size: 12px;
-      letter-spacing: -0.12px;
-      color: rgba(255,255,255,0.3);
+      font-size: 11px;
+      letter-spacing: 0.01em;
+      color: rgba(255,255,255,0.25);
+      text-align: center;
+      margin: 0;
     }
 
     /* ── Buttons ─────────────────────────────────────────────────── */
@@ -268,8 +302,6 @@
       max-width: 60ch;
       margin-top: 4px;
       margin-bottom: 0;
-      /* hide body copy once the header is stuck — keeps sticky bar compact */
-      transition: opacity 0.2s, max-height 0.2s;
     }
     .s-body-light {
       font-family: var(--text);
@@ -280,7 +312,6 @@
       max-width: 60ch;
       margin-top: 4px;
       margin-bottom: 0;
-      transition: opacity 0.2s, max-height 0.2s;
     }
 
     /* ── Experience section ──────────────────────────────────────── */
@@ -288,20 +319,7 @@
     #experience .section-inner { padding: 0 24px; }
 
     .section-header {
-      position: sticky;
-      top: 48px;          /* flush under the fixed nav */
-      z-index: 50;
-      padding: 20px 0 18px;
-      margin-bottom: 36px;
-    }
-    /* Match each section's background so scrolling content slides under */
-    .light .section-header {
-      background: var(--gray-bg);
-      border-bottom: 1px solid rgba(0,0,0,0.07);
-    }
-    .dark .section-header {
-      background: var(--black);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
+      margin-bottom: 48px;
     }
 
     .timeline {
@@ -900,9 +918,9 @@
         grid-template-columns: 1fr;
         gap: 40px;
       }
-      .headshot-placeholder {
-        width: 120px;
-        height: 120px;
+      .headshot-img {
+        width: 160px;
+        height: 160px;
       }
       .nav-links { gap: 20px; }
       .hero-headline { font-size: 36px; }
@@ -948,16 +966,21 @@
         </div>
       </div>
 
-      <div class="headshot-placeholder" aria-label="Headshot placeholder">
-        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-          <circle cx="12" cy="7" r="4"/>
-        </svg>
-        <span>Headshot</span>
+      <div class="headshot-wrap">
+        <img src="assets/headshot.png" alt="Jacob Ziolkowski" class="headshot-img" />
+        <p class="headshot-disclaimer">[ Photo background removed with AI ]</p>
       </div>
 
     </div>
   </section>
+
+  <!-- ── JOBS QUOTE ──────────────────────────────────────────────── -->
+  <div class="jobs-quote-bar">
+    <blockquote class="jobs-quote">
+      <p>&ldquo;Stay hungry, stay foolish.&rdquo;</p>
+      <cite>&mdash; Steve Jobs</cite>
+    </blockquote>
+  </div>
 
   <!-- ── EXPERIENCE ─────────────────────────────────────────────── -->
   <section id="experience" class="section light anchor" aria-labelledby="experience-heading">
@@ -1580,27 +1603,6 @@
         document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
 
-      // ── Sticky section headers — collapse body copy when stuck ──
-      document.querySelectorAll('.section-header').forEach(function (header) {
-        // Insert a zero-height sentinel just above the header
-        var sentinel = document.createElement('div');
-        sentinel.style.cssText = 'position:absolute;top:0;height:1px;width:100%;pointer-events:none;';
-        header.parentElement.style.position = 'relative';
-        header.parentElement.insertBefore(sentinel, header);
-
-        var body = header.querySelector('.s-body-dark, .s-body-light');
-
-        new IntersectionObserver(function (entries) {
-          var stuck = !entries[0].isIntersecting;
-          header.classList.toggle('is-stuck', stuck);
-          if (body) {
-            body.style.maxHeight  = stuck ? '0'    : '200px';
-            body.style.opacity    = stuck ? '0'    : '1';
-            body.style.marginTop  = stuck ? '0'    : '';
-            body.style.overflow   = 'hidden';
-          }
-        }, { threshold: 0, rootMargin: '-49px 0px 0px 0px' }).observe(sentinel);
-      });
 
       // ── Nav active state on scroll ─────────────────────────────
       var links    = Array.from(document.querySelectorAll('.nav-links a[data-target]'));
