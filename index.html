@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Jacob Ziolkowski — Health Informatics &amp; IT</title>
+  <title>Jacob Ziolkowski — Health IT, UX, and Applied IT Support</title>
   <style>
     /* ── Design tokens (Apple) ───────────────────────────────────── */
     :root {
@@ -406,14 +406,6 @@
       left: 0;
       color: rgba(0,0,0,0.36);   /* softer dash — the text should lead, not the marker */
     }
-    .tl-coming-soon {
-      font-family: var(--text);
-      font-size: 13px;            /* raised from 12 */
-      font-style: italic;         /* clearly a placeholder, not a real entry */
-      color: rgba(0,0,0,0.48);   /* raised from 0.48 to 0.48 — kept intentionally muted */
-      margin-bottom: 20px;
-    }
-
     /* Skills marquee */
     .skills-block { margin-top: 64px; }
     .skills-label {
@@ -542,46 +534,11 @@
       background: rgba(255, 255, 255, 0.35);
       transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       flex-shrink: 0;
-      position: relative;
-      overflow: hidden;
     }
     .tracker-dot.active {
       width: 30px;
-      background: rgba(255, 255, 255, 0.22); /* dim track — fill sweeps over it */
-    }
-    @keyframes dot-fill {
-      from { transform: scaleX(0); }
-      to   { transform: scaleX(1); }
-    }
-    .tracker-dot.active::after {
-      content: '';
-      position: absolute;
-      inset: 0;
       background: rgba(255, 255, 255, 0.92);
-      border-radius: inherit;
-      transform-origin: left center;
-      animation: dot-fill 3s linear forwards;
     }
-    .tracker-dots.is-paused .tracker-dot.active::after {
-      animation-play-state: paused;
-    }
-    .tracker-pause {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(210, 210, 215, 0.64);
-      color: rgba(0, 0, 0, 0.48);
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.15s, transform 0.12s;
-      flex-shrink: 0;
-    }
-    .tracker-pause:hover  { background: rgba(210, 210, 215, 0.88); }
-    .tracker-pause:active { transform: scale(0.9); }
-    .tracker-pause:focus-visible { outline: 2px solid #0071e3; outline-offset: 2px; }
 
     .portfolio-grid {
       display: flex;
@@ -608,6 +565,10 @@
     }
     .project-card:hover {
       box-shadow: rgba(0,0,0,0.3) 3px 10px 44px 0px;
+    }
+    .project-card:focus-visible {
+      outline: 3px solid var(--blue);
+      outline-offset: 3px;
     }
     @keyframes card-pulse {
       0%   { outline-color: transparent;        outline-offset: 0px; }
@@ -871,66 +832,16 @@
     }
     .contact-links a:hover svg { color: var(--blue-dark); }
 
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .contact-form label {
-      font-family: var(--text);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.72);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .contact-form input,
-    .contact-form textarea {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 8px;
-      padding: 13px 16px;
-      font-family: var(--text);
-      font-size: 17px;
-      letter-spacing: -0.374px;
-      color: var(--white);
-      outline: none;
-      transition: border-color 0.2s, background 0.2s;
-      width: 100%;
-      resize: vertical;
-    }
-    .contact-form input:focus,
-    .contact-form textarea:focus {
-      border-color: var(--blue-dark);
-      background: rgba(255,255,255,0.09);
-    }
-    .contact-form input::placeholder,
-    .contact-form textarea::placeholder {
-      color: rgba(255,255,255,0.28);
-    }
-    .contact-form textarea { min-height: 140px; }
-    .contact-form .btn-blue {
-      align-self: flex-start;
-      cursor: pointer;
-      border: none;
-      margin-top: 4px;
-    }
-
     @media (max-width: 768px) {
       .contact-layout { grid-template-columns: 1fr; gap: 48px; }
     }
 
     /* ── Resume section ──────────────────────────────────────────── */
-    #resume {
-      background: var(--gray-bg);
-      padding: 120px 24px;
-    }
+    #resume { padding: 100px 0; }
     #resume .section-inner {
       max-width: 860px;
       margin: 0 auto;
+      padding: 0 24px;
     }
     .resume-layout {
       display: grid;
@@ -939,89 +850,41 @@
       align-items: center;
       margin-top: 56px;
     }
-    /* Left: resume iframe preview */
+    /* Left: resume preview */
     .resume-doc {
       position: relative;
-      cursor: pointer;
-    }
-    /* Transparent click-capture overlay (iframes eat pointer events) */
-    .resume-doc::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 12px;
-      z-index: 1;
-      transition: background 0.15s;
-    }
-    .resume-doc:hover::after {
-      background: rgba(0,0,0,0.04);
-    }
-    .resume-preview-frame {
-      width: 100%;
       aspect-ratio: 8.5/11;
-      border: none;
       border-radius: 12px;
-      display: block;
       background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 28px;
       box-shadow: 0 40px 80px rgba(0,0,0,0.18), 0 8px 24px rgba(0,0,0,0.10);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .resume-doc:hover .resume-preview-frame {
+    .resume-doc:hover {
       transform: translateY(-3px);
       box-shadow: 0 52px 96px rgba(0,0,0,0.22), 0 12px 32px rgba(0,0,0,0.12);
     }
-
-    /* Expanded resume overlay */
-    #resume-expanded {
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 28px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.35s ease;
+    .resume-preview-content {
+      max-width: 26ch;
     }
-    #resume-expanded.active {
-      opacity: 1;
-      pointer-events: auto;
+    .resume-preview-title {
+      font-family: var(--display);
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--near-black);
+      letter-spacing: -0.2px;
+      margin-bottom: 8px;
     }
-    #resume-expanded iframe {
-      width: min(760px, 92vw);
-      height: min(88vh, calc(min(760px, 92vw) * 1.294));
-      border: none;
-      border-radius: 14px;
-      display: block;
-      background: var(--white);
-      box-shadow: 0 48px 120px rgba(0,0,0,0.55);
-      transform: scale(0.96);
-      transition: transform 0.35s cubic-bezier(0.2, 0, 0, 1);
+    .resume-preview-text {
+      font-family: var(--text);
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--muted-light);
     }
-    #resume-expanded.active iframe {
-      transform: scale(1);
-    }
-    .resume-expanded-close {
-      position: absolute;
-      top: 40px;
-      right: 20px;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: none;
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: var(--white);
-      opacity: 0.8;
-      transition: opacity 0.15s, background 0.15s;
-    }
-    .resume-expanded-close:hover { opacity: 1; background: rgba(255,255,255,0.25); }
 
     /* Right: info + CTA */
     .resume-info {
@@ -1148,11 +1011,11 @@
     <div class="section-inner">
 
       <div>
-        <p class="hero-eyebrow">Health Informatics &amp; IT</p>
+        <p class="hero-eyebrow">Health IT, UX, and Applied IT Support</p>
         <h1 id="hero-heading" class="hero-headline">Jacob Ziolkowski</h1>
-        <p class="hero-sub">Health IT. Patient-Centered Design. Clinical Informatics.</p>
+        <p class="hero-sub">FSU ICT student building practical, patient-centered health technology.</p>
         <p class="hero-body">
-          Health Informatics student at FSU building patient-centered health IT solutions — from AI-enhanced telehealth diagnostics to chronic condition tracking apps. Focused on clinical data, health technology, and usable design.
+          I’m an Information, Communication, and Technology student at Florida State University focused on health IT, digital health experiences, and usable technology. My background includes hands-on IT support, web administration, and interface design - and I’m now building projects that connect technical systems with real user needs.
         </p>
         <div class="hero-ctas">
           <a href="#experience" class="btn-blue">View Experience</a>
@@ -1185,39 +1048,33 @@
         <span class="s-eyebrow-light">Professional Background</span>
         <h2 id="experience-heading" class="s-heading-light">Experience</h2>
         <p class="s-body-light">
-          Hands-on IT experience from production environments at Florida State University, combined with academic training in health informatics and patient-centered systems design.
+          My experience combines front-line technical support, web administration, and academic work in health informatics. Together, those experiences have shaped how I think about usability, systems, and the people who depend on technology when it needs to work.
         </p>
       </div>
 
       <div class="timeline">
 
         <div class="timeline-item">
-          <div class="tl-role">Health Informatics Intern</div>
-          <div class="tl-company">St. Petersburg General Hospital</div>
-          <div class="tl-coming-soon">[Coming Summer 2026]</div>
-        </div>
-
-        <div class="timeline-item">
           <div class="tl-role">Web Admin Assistant</div>
-          <div class="tl-company">Florida State University — Information Technology Services (ITS)</div>
-          <div class="tl-dates">Dates not specified</div>
+          <div class="tl-company">Florida State University - Information Technology Services</div>
+          <div class="tl-dates">Florida State University</div>
           <ul class="tl-bullets">
-            <li>Maintained and updated public-facing university web pages for accuracy, accessibility, and brand compliance.</li>
-            <li>Translated non-technical stakeholder requests into clear, structured updates within CMS environments.</li>
-            <li>Troubleshot formatting errors, broken links, and permission conflicts in live production systems.</li>
-            <li>Standardized content formatting across departments and documented repeatable update workflows.</li>
+            <li>Updated and maintained public-facing university web content for clarity, consistency, and accessibility.</li>
+            <li>Turned stakeholder requests into structured CMS changes while keeping branding and page usability intact.</li>
+            <li>Fixed formatting issues, broken links, and content inconsistencies in live production pages.</li>
+            <li>Helped standardize repeatable content update workflows to improve speed and consistency across requests.</li>
           </ul>
         </div>
 
         <div class="timeline-item">
           <div class="tl-role">IT Helpdesk Technician</div>
           <div class="tl-company">FSU College of Communication &amp; Information</div>
-          <div class="tl-dates">Dates not specified</div>
+          <div class="tl-dates">Florida State University</div>
           <ul class="tl-bullets">
-            <li>Resolved Tier 1–2 technical issues for students, faculty, and staff across Windows and macOS devices.</li>
-            <li>Managed account access, software installations, and endpoint configuration while maintaining security and reliability.</li>
-            <li>Applied structured troubleshooting methods to diagnose ambiguous issues and restore system functionality.</li>
-            <li>Documented recurring problems and knowledge base articles to improve future support efficiency.</li>
+            <li>Resolved day-to-day technical issues for students, faculty, and staff across Windows and macOS devices.</li>
+            <li>Supported account access, software installs, device setup, and basic troubleshooting in a fast-paced support environment.</li>
+            <li>Worked through unclear technical problems methodically to restore functionality and reduce downtime.</li>
+            <li>Documented recurring issues and solutions to make future support faster and more consistent.</li>
           </ul>
         </div>
 
@@ -1226,53 +1083,38 @@
       <div class="skills-block">
         <h3 class="skills-label">Skills</h3>
         <div class="skills-marquee" aria-label="Skills">
-          <!-- Row 1: Health & clinical — scrolls left -->
+          <!-- Row 1: Health IT and UX -->
           <div class="skills-track skills-track--fwd">
             <span class="skill-tag" data-project="card-hit-prototype,card-skinsync">Health Informatics</span>
-            <span class="skill-tag" data-project="card-hit-prototype">FHIR &amp; EHR Systems</span>
-            <span class="skill-tag" data-project="card-hit-prototype">HIPAA Compliance</span>
-            <span class="skill-tag" data-project="card-hit-prototype">Clinical Informatics</span>
             <span class="skill-tag" data-project="card-hit-prototype,card-skinsync">Patient-Centered Design</span>
-            <span class="skill-tag" data-project="card-hit-prototype">Telehealth Systems</span>
-            <span class="skill-tag" data-project="card-hit-prototype">EHR Workflow Design</span>
-            <span class="skill-tag" data-project="card-hit-prototype">HL7 Interoperability</span>
-            <span class="skill-tag" data-project="card-hit-prototype">Remote Patient Monitoring</span>
+            <span class="skill-tag" data-project="card-skinsync">Digital Health UX</span>
+            <span class="skill-tag" data-project="card-hit-prototype">Health Data Workflows</span>
             <span class="skill-tag" data-project="card-hit-prototype">Health Data Privacy</span>
-            <span class="skill-tag" data-project="card-hit-prototype">Clinical Decision Support</span>
-            <span class="skill-tag" data-project="card-hit-prototype">Population Health</span>
-            <span class="skill-tag" data-project="card-skinsync">UX Research</span>
             <span class="skill-tag" data-project="card-skinsync">Figma</span>
-            <span class="skill-tag" data-project="card-skinsync,card-resume,card-info-arch">Information Architecture</span>
-          </div>
-          <!-- Row 2: Technical & IT — scrolls left (slower) -->
-          <div class="skills-track skills-track--rev">
-            <span class="skill-tag" data-project="card-fsu-web,card-resume">HTML &amp; CSS</span>
-            <span class="skill-tag" data-project="card-resume">JavaScript</span>
-            <span class="skill-tag" data-project="card-fsu-web">CMS Content Management</span>
-            <span class="skill-tag" data-project="card-fsu-web">Accessibility (WCAG)</span>
-            <span class="skill-tag" data-project="card-fsu-helpdesk">Troubleshooting (Windows &amp; macOS)</span>
-            <span class="skill-tag" data-project="card-fsu-helpdesk">Networking Basics</span>
-            <span class="skill-tag" data-project="card-fsu-helpdesk">Production Environment Support</span>
-            <span class="skill-tag" data-project="card-fsu-web">Cross-functional Communication</span>
-            <span class="skill-tag" data-project="card-fsu-helpdesk">Customer Support &amp; De-escalation</span>
-            <span class="skill-tag" data-project="card-fsu-web,card-fsu-helpdesk,card-info-arch">Documentation &amp; Knowledge Bases</span>
-            <span class="skill-tag" data-project="card-fsu-helpdesk">Time &amp; Ticket Management</span>
-            <span class="skill-tag" data-project="card-info-arch">SQL Basics</span>
-            <span class="skill-tag" data-project="card-fsu-helpdesk">Microsoft 365</span>
-            <span class="skill-tag" data-project="card-info-arch,card-fsu-web">Technical Writing</span>
-          </div>
-          <!-- Row 3: Design, AI & Communication — scrolls right -->
-          <div class="skills-track skills-track--back">
-            <span class="skill-tag" data-project="card-skinsync">Visual Content Design</span>
-            <span class="skill-tag" data-project="card-info-arch">Audience Analysis</span>
-            <span class="skill-tag" data-project="card-resume,card-info-arch">Content Strategy</span>
-            <span class="skill-tag" data-project="card-resume">Personal Branding</span>
-            <span class="skill-tag" data-project="card-resume">End-to-End Project Execution</span>
             <span class="skill-tag" data-project="card-skinsync">Wireframing</span>
-            <span class="skill-tag" data-project="card-skinsync">Visual Hierarchy</span>
-            <span class="skill-tag" data-project="card-info-arch,card-hit-prototype">Systems Thinking</span>
-            <span class="skill-tag" data-project="card-info-arch">Analytical Writing</span>
-            <span class="skill-tag" data-project="card-hit-prototype">AI in Healthcare</span>
+            <span class="skill-tag" data-project="card-skinsync">Interface Design</span>
+            <span class="skill-tag" data-project="card-skinsync">User-Centered Design</span>
+          </div>
+          <!-- Row 2: Web and technical -->
+          <div class="skills-track skills-track--rev">
+            <span class="skill-tag" data-project="card-fsu-web,card-resume">HTML</span>
+            <span class="skill-tag" data-project="card-fsu-web,card-resume">CSS</span>
+            <span class="skill-tag" data-project="card-resume">JavaScript</span>
+            <span class="skill-tag" data-project="card-fsu-web">CMS Content Updates</span>
+            <span class="skill-tag" data-project="card-fsu-web">Accessibility Fundamentals</span>
+            <span class="skill-tag" data-project="card-fsu-web,card-fsu-helpdesk,card-info-arch">Technical Documentation</span>
+            <span class="skill-tag" data-project="card-fsu-helpdesk">Troubleshooting</span>
+            <span class="skill-tag" data-project="card-fsu-helpdesk">Windows &amp; macOS Support</span>
+            <span class="skill-tag" data-project="card-fsu-helpdesk">Knowledge Base Writing</span>
+          </div>
+          <!-- Row 3: Professional and systems -->
+          <div class="skills-track skills-track--back">
+            <span class="skill-tag" data-project="card-fsu-web,card-fsu-helpdesk">Cross-Functional Communication</span>
+            <span class="skill-tag" data-project="card-fsu-helpdesk">Structured Problem Solving</span>
+            <span class="skill-tag" data-project="card-info-arch,card-resume">Information Architecture</span>
+            <span class="skill-tag" data-project="card-fsu-web,card-info-arch">Content Organization</span>
+            <span class="skill-tag" data-project="card-fsu-web,card-fsu-helpdesk">Production Support</span>
+            <span class="skill-tag" data-project="card-fsu-web">Stakeholder Communication</span>
           </div>
         </div>
       </div>
@@ -1288,7 +1130,7 @@
         <span class="s-eyebrow-dark">Selected Work</span>
         <h2 id="portfolio-heading" class="s-heading-dark">Portfolio</h2>
         <p class="s-body-dark">
-          Projects spanning health IT system design, UX/UI prototyping, web development, and technical communication.
+          A selection of projects across health-focused product concepts, interface design, technical communication, and web development. Each project reflects how I approach usability, structure, and real-world problem solving.
         </p>
       </div>
 
@@ -1305,22 +1147,22 @@
         <!-- HIT Prototype -->
         <article class="project-card" id="card-hit-prototype" data-category="health-it">
           <div class="thumb-area">
-            <img src="images/hit-prototype.png" alt="HIT Solution Prototype" loading="lazy">
+            <img src="images/hit-prototype.png" alt="Health IT Solution Prototype" loading="lazy">
             <div class="thumb-fallback" aria-hidden="true">
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1d1d1f" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
               <span>Image coming soon</span>
             </div>
           </div>
           <div class="card-body">
-            <div class="card-title">HIT Solution Prototype</div>
-            <p class="card-desc-short">AI-enhanced telehealth platform integrating wearable biometrics and FHIR-compliant EHR export to bridge the physical exam gap in remote care.</p>
-            <p class="card-desc">Designed an AI-Enhanced Telehealth Diagnostics System to close the physical exam gap in remote patient care. The platform integrates wearable biometrics, computer vision, and an AI diagnostic support engine with FHIR-compliant EHR export — providing physicians with structured, exam-quality data during virtual appointments. Built to serve patients in rural, mobility-limited, and home-bound settings where in-person care is inaccessible.</p>
+            <div class="card-title">Health IT Solution Prototype</div>
+            <p class="card-desc-short">A student-designed digital health concept exploring how remote care tools, structured data, and patient usability could work together in a more practical telehealth experience.</p>
+            <p class="card-desc">This project explored a health IT concept for improving remote care experiences through better data collection and clearer clinician-facing information. The focus was not on shipping a production medical product, but on designing a more thoughtful system: one that considered patient input, structured health data, and the challenge of making remote interactions more useful. It helped me practice health informatics thinking, systems design, and translating healthcare problems into product concepts.</p>
             <ul class="card-skills">
-              <li>FHIR &amp; EHR integration</li>
-              <li>AI diagnostic support systems</li>
-              <li>Health IT system design</li>
-              <li>Clinical workflow prototyping</li>
-              <li>Patient-centered UX</li>
+              <li>Health informatics systems thinking</li>
+              <li>Patient-centered design</li>
+              <li>Concept development</li>
+              <li>Workflow planning</li>
+              <li>Technical communication</li>
             </ul>
           </div>
         </article>
@@ -1336,13 +1178,14 @@
           </div>
           <div class="card-body">
             <div class="card-title">SkinSync App Prototype</div>
-            <p class="card-desc-short">Minimalist mobile health app for tracking chronic skin conditions — designed end-to-end in Figma with patient-facing clarity as the core goal.</p>
-            <p class="card-desc">A conceptual mobile health application designed to help individuals manage and track chronic skin conditions over time. As lead designer, I developed the UX flow, wireframes, and visual interface using an Apple-inspired minimalist aesthetic — prioritizing clarity and accessibility over visual complexity. The core challenge was presenting health data intuitively to non-technical users while remaining medically meaningful.</p>
+            <p class="card-desc-short">A mobile app concept for helping users track chronic skin conditions through clearer check-ins, cleaner visuals, and a less frustrating daily experience.</p>
+            <p class="card-desc">SkinSync is a mobile health app concept focused on helping people manage chronic skin conditions in a way that feels simple, calm, and usable. I designed the wireframes and interface direction in Figma, using a minimalist visual style and a mobile-first structure. A major goal was reducing friction: many health-tracking tools become overwhelming fast, so this concept focused on clearer flows, better hierarchy, and a more approachable experience for everyday use.</p>
             <ul class="card-skills">
-              <li>UX/UI design and wireframing (Figma)</li>
-              <li>Health informatics and patient-facing data design</li>
-              <li>User-centered design principles</li>
-              <li>Visual hierarchy and accessible interface development</li>
+              <li>UX/UI design</li>
+              <li>Figma</li>
+              <li>Wireframing</li>
+              <li>Mobile-first design</li>
+              <li>Patient-facing interface thinking</li>
             </ul>
           </div>
         </article>
@@ -1358,13 +1201,14 @@
           </div>
           <div class="card-body">
             <div class="card-title">FSU ITS Web Content Management</div>
-            <p class="card-desc-short">Maintained production university web pages, translating stakeholder requests into accessible, brand-compliant CMS updates.</p>
-            <p class="card-desc">Maintained and updated standards-compliant university web pages, ensuring accurate, accessible content and consistent branding across departments. Translated non-technical stakeholder requests into structured CMS updates and documented repeatable workflows to improve team consistency.</p>
+            <p class="card-desc-short">Production web support work focused on clean content updates, consistency, and practical usability across university pages.</p>
+            <p class="card-desc">In this role, I worked on public-facing web content within Florida State University’s IT environment. The work involved keeping pages accurate, organized, and aligned with university standards while responding to real stakeholder requests. It strengthened my understanding of web operations, content structure, and the importance of clarity when users just need information to work.</p>
             <ul class="card-skills">
-              <li>CMS content management</li>
-              <li>Accessibility (WCAG basics)</li>
-              <li>Cross-functional communication</li>
-              <li>Documentation &amp; knowledge bases</li>
+              <li>CMS content updates</li>
+              <li>Accessibility awareness</li>
+              <li>Content structure</li>
+              <li>Stakeholder communication</li>
+              <li>Production environment support</li>
             </ul>
           </div>
         </article>
@@ -1380,13 +1224,14 @@
           </div>
           <div class="card-body">
             <div class="card-title">FSU CCI IT Helpdesk Support</div>
-            <p class="card-desc-short">Resolved Tier 1–2 IT support for students and faculty, managing endpoints and building knowledge base documentation.</p>
-            <p class="card-desc">Resolved Tier 1–2 support tickets for students, faculty, and staff across Windows and macOS environments. Managed account access, software installations, and endpoint configuration while documenting recurring issues to strengthen the team knowledge base.</p>
+            <p class="card-desc-short">Hands-on IT support experience troubleshooting devices, restoring access, and helping users solve practical technical problems.</p>
+            <p class="card-desc">This experience gave me daily exposure to real technical issues affecting students, faculty, and staff. I supported common endpoint, account, and software problems across Windows and macOS systems while learning how to troubleshoot under pressure and communicate clearly with non-technical users. It built the practical support mindset that now shapes how I think about reliability and usability in every project.</p>
             <ul class="card-skills">
-              <li>Troubleshooting (Windows &amp; macOS)</li>
-              <li>Account management &amp; endpoint configuration</li>
-              <li>Customer support &amp; de-escalation</li>
-              <li>Documentation &amp; knowledge bases</li>
+              <li>Technical troubleshooting</li>
+              <li>Windows and macOS support</li>
+              <li>Account and software support</li>
+              <li>Customer communication</li>
+              <li>Documentation</li>
             </ul>
           </div>
         </article>
@@ -1402,13 +1247,14 @@
           </div>
           <div class="card-body">
             <div class="card-title">Interactive Resume Website</div>
-            <p class="card-desc-short">Designed and built this portfolio from scratch — handling architecture, content strategy, and front-end development end-to-end.</p>
-            <p class="card-desc">Designed and developed a personal web portfolio as a living, interactive representation of my professional identity. I handled the full scope — from information architecture and content strategy to front-end development in HTML, CSS, and JavaScript. A key challenge was organizing diverse content types into a cohesive user experience that communicates clearly at a glance.</p>
+            <p class="card-desc-short">A personal portfolio site designed and built to present my experience, projects, and direction in a cleaner, more intentional way than a static resume alone.</p>
+            <p class="card-desc">I designed and built this site as a more complete representation of my work, interests, and technical direction. The project involved structuring content, shaping the visual system, and building the front end in HTML, CSS, and JavaScript. The challenge was balancing presentation with credibility: making the site feel polished while still keeping the content grounded, readable, and useful to someone reviewing me quickly.</p>
             <ul class="card-skills">
-              <li>Front-end web development (HTML, CSS, JavaScript)</li>
-              <li>Information architecture and content strategy</li>
-              <li>Personal branding and professional communication</li>
-              <li>Project ownership and end-to-end execution</li>
+              <li>HTML, CSS, and JavaScript</li>
+              <li>Information architecture</li>
+              <li>Content strategy</li>
+              <li>Front-end design</li>
+              <li>Project ownership</li>
             </ul>
           </div>
         </article>
@@ -1424,13 +1270,14 @@
           </div>
           <div class="card-body">
             <div class="card-title">Information Architecture &amp; Documentation Project</div>
-            <p class="card-desc-short">Structured and documented an information system — producing clear content hierarchies and procedural guides for both technical and general audiences.</p>
-            <p class="card-desc">Focused on the structured organization of information systems — developing clear documentation, logical content hierarchies, and procedural guides for practical use. Analyzed information flow within a system, identified gaps or inefficiencies, and produced documentation for both technical and general audiences without sacrificing accuracy or usability.</p>
+            <p class="card-desc-short">A documentation-focused project centered on organizing information clearly for both technical and non-technical audiences.</p>
+            <p class="card-desc">This project focused on how information should be structured so people can actually use it. I worked on organizing content, clarifying procedures, and improving how information is presented for different audiences. It reinforced one of the main things I care about in technology: systems fail people quickly when information is confusing, even if the underlying tool is technically sound.</p>
             <ul class="card-skills">
-              <li>Information architecture and content organization</li>
-              <li>Technical writing and procedural documentation</li>
-              <li>Audience-aware communication design</li>
-              <li>Analytical thinking and systems-level organization</li>
+              <li>Information architecture</li>
+              <li>Technical writing</li>
+              <li>Content organization</li>
+              <li>Audience awareness</li>
+              <li>Structured communication</li>
             </ul>
           </div>
         </article>
@@ -1441,43 +1288,38 @@
       <!-- Scroll tracker -->
       <div class="carousel-tracker" aria-label="Carousel progress">
         <div class="tracker-dots" role="presentation"></div>
-        <button class="tracker-pause" aria-label="Pause auto-scroll">
-          <svg class="icon-pause" width="10" height="12" viewBox="0 0 10 12" fill="currentColor" aria-hidden="true"><rect x="0" y="0" width="3.5" height="12" rx="1.5"/><rect x="6.5" y="0" width="3.5" height="12" rx="1.5"/></svg>
-          <svg class="icon-play" width="11" height="12" viewBox="0 0 11 12" fill="currentColor" aria-hidden="true" style="display:none"><path d="M1 1l9 5-9 5V1z"/></svg>
-        </button>
       </div>
 
     </div><!-- /.section-inner -->
   </section>
 
   <!-- ── RESUME ─────────────────────────────────────────────────── -->
-  <section id="resume" class="anchor" aria-labelledby="resume-heading">
+  <section id="resume" class="section light anchor" aria-labelledby="resume-heading">
     <div class="section-inner">
 
       <div class="section-header">
         <span class="s-eyebrow-light">Credentials</span>
         <h2 id="resume-heading" class="s-heading-light">Resume</h2>
         <p class="s-body-light">
-          A full overview of my education, experience, and skills in health informatics and IT.
+          A concise view of my education, technical experience, and project work across IT support, web administration, and health-focused design.
         </p>
       </div>
 
       <div class="resume-layout">
 
         <!-- Resume preview -->
-        <div class="resume-doc">
-          <iframe
-            src="assets/JacobZiolkowski_Resume.pdf"
-            class="resume-preview-frame"
-            title="Jacob Ziolkowski Resume"
-          ></iframe>
+        <div class="resume-doc" aria-label="Resume preview">
+          <div class="resume-preview-content">
+            <div class="resume-preview-title">Resume Preview</div>
+            <p class="resume-preview-text">Inline PDF preview removed for stability. Use the actions on the right to open or download the full resume.</p>
+          </div>
         </div>
 
         <!-- Info + download -->
         <div class="resume-info">
           <div>
             <h3 style="font-family:var(--display);font-size:22px;font-weight:600;color:var(--near-black);letter-spacing:-0.3px;margin-bottom:6px;">View my full resume</h3>
-            <p style="font-family:var(--text);font-size:14px;color:var(--muted-light);line-height:1.55;">Education, clinical informatics coursework, IT production experience, and project work — all in one place.</p>
+            <p style="font-family:var(--text);font-size:14px;color:var(--muted-light);line-height:1.55;">Coursework, hands-on IT experience, web support work, and selected projects - all in one place.</p>
           </div>
           <div class="resume-meta">
             <div class="resume-meta-row">
@@ -1486,14 +1328,17 @@
             </div>
             <div class="resume-meta-row">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              Updated April 2025
+              Updated April 2026
             </div>
             <div class="resume-meta-row">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              Florida State University — B.S. ICT, Health Informatics Certificate
+              Florida State University - B.S. in ICT | Health Informatics Certificate
             </div>
           </div>
           <div class="resume-cta">
+            <a href="assets/JacobZiolkowski_Resume.pdf" target="_blank" rel="noopener noreferrer" class="resume-download-btn" style="background:var(--blue);">
+              Open Resume
+            </a>
             <a href="assets/JacobZiolkowski_Resume.pdf" download class="resume-download-btn">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               Download Resume
@@ -1513,7 +1358,7 @@
         <span class="s-eyebrow-dark">Get in Touch</span>
         <h2 id="contact-heading" class="s-heading-dark">Contact</h2>
         <p class="s-body-dark">
-          Interested in health IT, informatics projects, or just want to connect? Reach out — I'd love to hear from you.
+          I’m especially interested in health IT, digital health tools, practical UX, and technology that improves real user experiences. Feel free to reach out if you’d like to connect.
         </p>
       </div>
 
@@ -1549,21 +1394,9 @@
           </ul>
         </div>
 
-        <form class="contact-form" action="#" onsubmit="return false;">
-          <label>
-            Name
-            <input type="text" name="name" placeholder="Your name" autocomplete="name" />
-          </label>
-          <label>
-            Email
-            <input type="email" name="email" placeholder="you@example.com" autocomplete="email" />
-          </label>
-          <label>
-            Message
-            <textarea name="message" placeholder="What's on your mind?"></textarea>
-          </label>
-          <button type="submit" class="btn-blue">Send Message</button>
-        </form>
+        <div style="font-family:var(--text);font-size:14px;color:rgba(255,255,255,0.58);line-height:1.6;max-width:36ch;">
+          The fastest way to reach me is by email or LinkedIn. I’m open to conversations about health IT, UX-focused digital health, and entry-level technical opportunities.
+        </div>
 
       </div>
     </div>
@@ -1571,18 +1404,19 @@
 
   <!-- ── FOOTER ─────────────────────────────────────────────────── -->
   <footer>
-    <p>Jacob Ziolkowski &mdash; Health Informatics &amp; IT &mdash; Florida State University</p>
+    <p>Jacob Ziolkowski &mdash; Health IT, UX, and Applied IT Support &mdash; Florida State University</p>
   </footer>
 
   <div id="card-backdrop"></div>
   <div id="card-expanded"></div>
-  <div id="resume-expanded">
-    <iframe src="assets/JacobZiolkowski_Resume.pdf" title="Jacob Ziolkowski Resume — Full View"></iframe>
-    <button class="resume-expanded-close" aria-label="Close resume">
-      <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>
-    </button>
-  </div>
 
+  <script>
+    // Prevent browser from restoring previous scroll position
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+  </script>
   <script>
     (function () {
       // ── Skills marquee: duplicate tags within each track ───────
@@ -1611,15 +1445,19 @@
       var allCards   = Array.from(document.querySelectorAll('.project-card'));
       var scrollEl   = document.querySelector('.portfolio-scroll');
       var dotsWrap   = document.querySelector('.tracker-dots');
-      var pauseBtn   = document.querySelector('.tracker-pause');
-      var iconPause  = pauseBtn.querySelector('.icon-pause');
-      var iconPlay   = pauseBtn.querySelector('.icon-play');
       var CARD_WIDTH = 300;
       var CARD_GAP   = 20;
       var CARD_STEP  = CARD_WIDTH + CARD_GAP;
-      var INTERVAL   = 3000; // ms between auto-advances
-      var timer      = null;
-      var paused     = false;
+      var lastFocusedCard = null;
+
+      allCards.forEach(function (card) {
+        var title = card.querySelector('.card-title');
+        var titleText = title ? title.textContent.trim() : 'Project';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-expanded', 'false');
+        card.setAttribute('aria-label', titleText + ' - press Enter or Space for details');
+      });
 
       // Cache original filter labels
       document.querySelectorAll('.pf-btn').forEach(function (b) {
@@ -1666,25 +1504,13 @@
         });
       }
 
-      function restartFill() {
-        var activeDot = dotsWrap.querySelector('.tracker-dot.active');
-        if (!activeDot) return;
-        activeDot.classList.remove('active');
-        void activeDot.offsetWidth; // force reflow → CSS animation resets
-        activeDot.classList.add('active');
-      }
-
       function updateDots() {
         var dots    = dotsWrap.querySelectorAll('.tracker-dot');
         var idx     = activeIndex();
-        var changed = false;
         dots.forEach(function (d, i) {
-          var wasActive = d.classList.contains('active');
           var isActive  = i === idx;
-          if (!wasActive && isActive) changed = true;
           d.classList.toggle('active', isActive);
         });
-        if (changed) restartFill(); // restart fill animation on newly active dot
       }
 
       // ── Card scale fan ─────────────────────────────────────────
@@ -1699,34 +1525,6 @@
           card.style.opacity   = (1 - ratio * 0.45).toFixed(4);
         });
       }
-
-      // ── Auto-advance timer ─────────────────────────────────────
-      function startTimer() {
-        if (timer) clearInterval(timer);
-        timer = setInterval(function () {
-          var cards = visibleCards();
-          if (!cards.length) return;
-          var next = (activeIndex() + 1) % cards.length;
-          scrollToIndex(next);
-        }, INTERVAL);
-      }
-
-      function stopTimer() { clearInterval(timer); timer = null; }
-
-      pauseBtn.addEventListener('click', function () {
-        paused = !paused;
-        iconPause.style.display = paused ? 'none' : '';
-        iconPlay.style.display  = paused ? ''     : 'none';
-        pauseBtn.setAttribute('aria-label', paused ? 'Resume auto-scroll' : 'Pause auto-scroll');
-        if (paused) {
-          stopTimer();
-          dotsWrap.classList.add('is-paused');
-        } else {
-          dotsWrap.classList.remove('is-paused');
-          restartFill();
-          startTimer();
-        }
-      });
 
       // ── Click-drag to scroll ───────────────────────────────────
       var isDragging = false;
@@ -1757,10 +1555,6 @@
         scrollEl.style.cursor = '';
         scrollEl.style.userSelect = '';
       });
-
-      // Pause timer on hover so cards stay put for clicking
-      scrollEl.addEventListener('mouseenter', function () { if (!paused) stopTimer(); });
-      scrollEl.addEventListener('mouseleave', function () { if (!paused) { restartFill(); startTimer(); } });
 
       // ── Scroll listener ────────────────────────────────────────
       scrollEl.addEventListener('scroll', function () {
@@ -1802,7 +1596,6 @@
         void scrollEl.offsetWidth; // force reflow before scale calc
 
         buildDots();
-        restartFill(); // always reset dot animation after filter change
         updateCardScales(); // sets correct transforms instantly (no transition yet)
         updateDots();
 
@@ -1810,15 +1603,12 @@
         requestAnimationFrame(function () {
           allCards.forEach(function (card) { card.style.transition = ''; });
         });
-
-        if (!paused) { stopTimer(); startTimer(); }
-        else { dotsWrap.classList.add('is-paused'); }
       });
 
       // ── Init ───────────────────────────────────────────────────
       buildDots();
       updateCardScales();
-      startTimer();
+      updateDots();
 
 
       // ── Skill tag → focus project in carousel ──────────────────
@@ -1856,9 +1646,6 @@
         requestAnimationFrame(function () {
           allCards.forEach(function (c) { c.style.transition = ''; });
         });
-
-        // Restart timer from this card
-        if (!paused) { stopTimer(); startTimer(); }
 
         // Pulse the focused card
         card.classList.remove('card-pulse');
@@ -1898,9 +1685,17 @@
       var expandedEl = document.getElementById('card-expanded');
       var sourceCard = null;
 
+      function syncOverlayState() {
+        var cardOverlayActive = !!sourceCard || expandedEl.classList.contains('expanding');
+        backdrop.classList.toggle('active', cardOverlayActive);
+        document.body.style.overflow = cardOverlayActive ? 'hidden' : '';
+      }
+
       function openCard(card) {
         if (sourceCard) return;
         var rect = card.getBoundingClientRect();
+        lastFocusedCard = card;
+        card.setAttribute('aria-expanded', 'true');
 
         // Populate expanded panel with cloned content
         expandedEl.innerHTML = '';
@@ -1915,6 +1710,8 @@
         btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>';
         btn.addEventListener('click', function (e) { e.stopPropagation(); closeCard(); });
         expandedEl.appendChild(btn);
+        expandedEl.setAttribute('role', 'dialog');
+        expandedEl.setAttribute('aria-modal', 'true');
 
         // Snap to card position (no transition yet)
         expandedEl.style.transition = 'none';
@@ -1927,7 +1724,7 @@
 
         sourceCard = card;
         card.classList.add('project-card--source');
-        backdrop.classList.add('active');
+        syncOverlayState();
 
         // Animate to center on next paint
         requestAnimationFrame(function () {
@@ -1940,6 +1737,7 @@
             expandedEl.style.width  = w + 'px';
             expandedEl.style.height = h + 'px';
             expandedEl.style.borderRadius = '20px';
+            btn.focus();
           });
         });
       }
@@ -1970,12 +1768,13 @@
           expandedEl.style.height       = rect.height + 'px';
           expandedEl.style.borderRadius = '12px';
           expandedEl.style.boxShadow    = 'rgba(0,0,0,0.22) 3px 5px 30px 0px';
-          backdrop.classList.remove('active');
 
           setTimeout(function () {
             expandedEl.classList.remove('expanding');
             expandedEl.innerHTML = '';
             expandedEl.removeAttribute('style');
+            sc.setAttribute('aria-expanded', 'false');
+            syncOverlayState();
 
             var body = sc.querySelector('.card-body');
 
@@ -1999,6 +1798,11 @@
             setTimeout(function () {
               if (body) body.style.cssText = '';
             }, 600);
+
+            if (lastFocusedCard) {
+              lastFocusedCard.focus();
+              lastFocusedCard = null;
+            }
           }, 520);
         }, 160);
       }
@@ -2018,38 +1822,28 @@
         }
       });
 
+      document.querySelector('.portfolio-grid').addEventListener('keydown', function (e) {
+        var card = e.target.closest('.project-card');
+        if (!card || sourceCard) return;
+
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          var cards = visibleCards();
+          var focusedIdx = cards.indexOf(card);
+          if (focusedIdx === -1) return;
+          if (focusedIdx !== centeredIndex()) {
+            scrollToIndex(focusedIdx);
+          } else {
+            openCard(card);
+          }
+        }
+      });
+
       backdrop.addEventListener('click', closeCard);
 
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') { closeCard(); closeResume(); }
+        if (e.key === 'Escape') { closeCard(); }
       });
-
-      // ── Resume expand/collapse ─────────────────────────────────
-      var resumeOverlay = document.getElementById('resume-expanded');
-      var resumeOpen    = false;
-
-      function openResume() {
-        resumeOpen = true;
-        backdrop.classList.add('active');
-        resumeOverlay.classList.add('active');
-      }
-      function closeResume() {
-        if (!resumeOpen) return;
-        resumeOpen = false;
-        backdrop.classList.remove('active');
-        resumeOverlay.classList.remove('active');
-      }
-
-      document.querySelector('.resume-doc').addEventListener('click', function () {
-        resumeOpen ? closeResume() : openResume();
-      });
-
-      document.querySelector('.resume-expanded-close').addEventListener('click', function (e) {
-        e.stopPropagation();
-        closeResume();
-      });
-
-      backdrop.addEventListener('click', closeResume);
     }());
   </script>
 </body>
