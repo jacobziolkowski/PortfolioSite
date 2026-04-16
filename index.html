@@ -724,6 +724,131 @@
     .portfolio-grid .project-card .thumb-area { display: none; }
     #card-expanded .thumb-area { display: flex; }
 
+    /* ── Poster aside (FSU Web) ─────────────────────────────── */
+    .card-poster { display: none; }
+    .card-body--with-poster .card-main {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+    }
+
+    #card-expanded .card-body--with-poster {
+      flex-direction: row;
+      gap: 28px;
+      align-items: flex-start;
+    }
+    #card-expanded .card-poster {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 0 0 220px;
+      align-items: center;
+      position: sticky;
+      top: 0;
+    }
+    #card-expanded .poster-trigger {
+      display: block;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      background: transparent;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: zoom-in;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    #card-expanded .poster-trigger:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.16);
+    }
+    #card-expanded .poster-trigger:focus-visible {
+      outline: 2px solid var(--near-black);
+      outline-offset: 3px;
+    }
+    #card-expanded .poster-trigger img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    #card-expanded .poster-caption {
+      font-family: var(--text);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--dim-light);
+      text-align: center;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    #card-expanded .poster-caption-hint {
+      font-size: 10px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.6;
+    }
+
+    /* Stack when narrow */
+    @media (max-width: 640px) {
+      #card-expanded .card-body--with-poster {
+        flex-direction: column;
+      }
+      #card-expanded .card-poster {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 260px;
+        align-self: center;
+        position: static;
+      }
+    }
+
+    /* ── Poster lightbox ────────────────────────────────────── */
+    .poster-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      background: rgba(0,0,0,0.88);
+      cursor: zoom-out;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .poster-lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+    .poster-lightbox__img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+      border-radius: 8px;
+      cursor: default;
+    }
+    .poster-lightbox__close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 34px;
+      line-height: 1;
+      cursor: pointer;
+      opacity: 0.7;
+      padding: 6px 12px;
+      transition: opacity 0.2s ease;
+    }
+    .poster-lightbox__close:hover { opacity: 1; }
+
     /* Card body */
     .card-body {
       padding: 24px;
@@ -1154,6 +1279,7 @@
             </div>
           </div>
           <div class="card-body">
+            <img src="assets/images/EczemaWise.png" alt="Health IT Solution Prototype" loading="lazy" style="width:100%;height:auto;border-radius:8px;">
             <div class="card-title">Health IT Solution Prototype</div>
             <p class="card-desc-short">A student-designed digital health concept exploring how remote care tools, structured data, and patient usability could work together in a more practical telehealth experience.</p>
             <p class="card-desc">This project explored a health IT concept for improving remote care experiences through better data collection and clearer clinician-facing information. The focus was not on shipping a production medical product, but on designing a more thoughtful system: one that considered patient input, structured health data, and the challenge of making remote interactions more useful. It helped me practice health informatics thinking, systems design, and translating healthcare problems into product concepts.</p>
@@ -1177,6 +1303,7 @@
             </div>
           </div>
           <div class="card-body">
+            <img src="assets/images/SkinSync%20-%2032E1D1BD-0A7E-4A35-9C28-CC1182A11F49.png" alt="SkinSync App Prototype" loading="lazy" style="width:100%;height:auto;border-radius:8px;">
             <div class="card-title">SkinSync App Prototype</div>
             <p class="card-desc-short">A mobile app concept for helping users track chronic skin conditions through clearer check-ins, cleaner visuals, and a less frustrating daily experience.</p>
             <p class="card-desc">SkinSync is a mobile health app concept focused on helping people manage chronic skin conditions in a way that feels simple, calm, and usable. I designed the wireframes and interface direction in Figma, using a minimalist visual style and a mobile-first structure. A major goal was reducing friction: many health-tracking tools become overwhelming fast, so this concept focused on clearer flows, better hierarchy, and a more approachable experience for everyday use.</p>
@@ -1199,17 +1326,26 @@
               <span>Image coming soon</span>
             </div>
           </div>
-          <div class="card-body">
-            <div class="card-title">FSU ITS Web Content Management</div>
-            <p class="card-desc-short">Production web support work focused on clean content updates, consistency, and practical usability across university pages.</p>
-            <p class="card-desc">In this role, I worked on public-facing web content within Florida State University’s IT environment. The work involved keeping pages accurate, organized, and aligned with university standards while responding to real stakeholder requests. It strengthened my understanding of web operations, content structure, and the importance of clarity when users just need information to work.</p>
-            <ul class="card-skills">
-              <li>CMS content updates</li>
-              <li>Accessibility awareness</li>
-              <li>Content structure</li>
-              <li>Stakeholder communication</li>
-              <li>Production environment support</li>
-            </ul>
+          <div class="card-body card-body--with-poster">
+            <div class="card-main">
+              <img src="assets/images/Screenshot%202025-09-25%20at%202.47.27%C2%A0PM.png" alt="FSU ITS Web Content Management" loading="lazy" style="width:100%;height:auto;border-radius:8px;">
+              <div class="card-title">FSU ITS Web Content Management</div>
+              <p class="card-desc-short">Production web support work focused on clean content updates, consistency, and practical usability across university pages.</p>
+              <p class="card-desc">In this role, I worked on public-facing web content within Florida State University’s IT environment. The work involved keeping pages accurate, organized, and aligned with university standards while responding to real stakeholder requests. It strengthened my understanding of web operations, content structure, and the importance of clarity when users just need information to work.</p>
+              <ul class="card-skills">
+                <li>CMS content updates</li>
+                <li>Accessibility awareness</li>
+                <li>Content structure</li>
+                <li>Stakeholder communication</li>
+                <li>Production environment support</li>
+              </ul>
+            </div>
+            <aside class="card-poster">
+              <button type="button" class="poster-trigger" data-poster-src="images/its-poster.png" data-poster-href="assets/Jacob_Ziolkowski_ITS_Poster.pdf" aria-label="View ITS internship poster fullscreen">
+                <img src="images/its-poster.png" alt="ITS Spring 2026 internship poster" loading="lazy">
+              </button>
+              <span class="poster-caption">ITS Internship Poster · Spring 2026 <span class="poster-caption-hint">click to expand</span></span>
+            </aside>
           </div>
         </article>
 
@@ -1223,6 +1359,7 @@
             </div>
           </div>
           <div class="card-body">
+            <img src="assets/images/IMG_7298.HEIC" alt="FSU CCI IT Helpdesk Support" loading="lazy" style="width:100%;height:auto;border-radius:8px;">
             <div class="card-title">FSU CCI IT Helpdesk Support</div>
             <p class="card-desc-short">Hands-on IT support experience troubleshooting devices, restoring access, and helping users solve practical technical problems.</p>
             <p class="card-desc">This experience gave me daily exposure to real technical issues affecting students, faculty, and staff. I supported common endpoint, account, and software problems across Windows and macOS systems while learning how to troubleshoot under pressure and communicate clearly with non-technical users. It built the practical support mindset that now shapes how I think about reliability and usability in every project.</p>
@@ -1269,6 +1406,7 @@
             </div>
           </div>
           <div class="card-body">
+            <img src="assets/images/InfoArch%20-%20MidtownHighSeal.png" alt="Information Architecture &amp; Documentation Project" loading="lazy" style="width:100%;height:auto;border-radius:8px;">
             <div class="card-title">Information Architecture &amp; Documentation Project</div>
             <p class="card-desc-short">A documentation-focused project centered on organizing information clearly for both technical and non-technical audiences.</p>
             <p class="card-desc">This project focused on how information should be structured so people can actually use it. I worked on organizing content, clarifying procedures, and improving how information is presented for different audiences. It reinforced one of the main things I care about in technology: systems fail people quickly when information is confusing, even if the underlying tool is technically sound.</p>
@@ -1409,6 +1547,11 @@
 
   <div id="card-backdrop"></div>
   <div id="card-expanded"></div>
+
+  <div id="poster-lightbox" class="poster-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Poster preview">
+    <button type="button" class="poster-lightbox__close" aria-label="Close poster">&times;</button>
+    <img class="poster-lightbox__img" src="" alt="">
+  </div>
 
   <script>
     // Prevent browser from restoring previous scroll position
@@ -1843,6 +1986,40 @@
 
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') { closeCard(); }
+      });
+
+      // ── Poster lightbox ────────────────────────────────────────
+      var lightbox    = document.getElementById('poster-lightbox');
+      var lightboxImg = lightbox.querySelector('.poster-lightbox__img');
+
+      function openLightbox(src) {
+        lightboxImg.src = src;
+        lightbox.classList.add('active');
+        lightbox.setAttribute('aria-hidden', 'false');
+      }
+      function closeLightbox() {
+        lightbox.classList.remove('active');
+        lightbox.setAttribute('aria-hidden', 'true');
+        lightboxImg.src = '';
+      }
+
+      document.body.addEventListener('click', function (e) {
+        var trigger = e.target.closest('.poster-trigger');
+        if (!trigger) return;
+        e.stopPropagation();
+        var src = trigger.getAttribute('data-poster-src')
+          || (trigger.querySelector('img') && trigger.querySelector('img').src);
+        if (src) openLightbox(src);
+      });
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target !== lightboxImg) closeLightbox();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+          closeLightbox();
+        }
       });
     }());
   </script>
