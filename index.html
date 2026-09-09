@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Jacob Ziolkowski — Health IT, UX, and Applied IT Support</title>
+  <meta name="description" content="Portfolio of Jacob Ziolkowski, an FSU ICT student focused on health IT, digital health UX, web administration, and applied IT support." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230071e3'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='-apple-system,Helvetica,Arial,sans-serif' font-size='30' font-weight='600' fill='%23fff'%3EJZ%3C/text%3E%3C/svg%3E" />
   <style>
     /* ── Design tokens (Apple) ───────────────────────────────────── */
     :root {
@@ -12,17 +14,28 @@
       --gray-bg:      #f5f5f7;
       --white:        #ffffff;
       --blue:         #0071e3;
+      --blue-hover:   #0077ed;
       --blue-link:    #0066cc;
       --blue-dark:    #2997ff;
-      --body-light:   rgba(0,0,0,0.8);
-      --muted-light:  rgba(0,0,0,0.56);
-      --dim-light:    rgba(0,0,0,0.48);
-      --body-dark:    rgba(255,255,255,0.72);
-      --card-dark:    #272729;
-      --card-shadow:  rgba(0,0,0,0.22) 3px 5px 30px 0px;
 
-      --display: "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      --text:    "SF Pro Text",    "Helvetica Neue", Helvetica, Arial, sans-serif;
+      /* Apple secondary text grays */
+      --gray-on-dark:  #86868b;   /* secondary text on black */
+      --gray-on-light: #6e6e73;   /* secondary text on #f5f5f7 / white */
+
+      --hair-dark:  rgba(255,255,255,0.14);
+      --hair-light: rgba(0,0,0,0.08);
+      --fill-dark:  rgba(255,255,255,0.10);
+      --fill-light: rgba(0,0,0,0.05);
+
+      --card-shadow: rgba(0,0,0,0.22) 3px 5px 30px 0px;
+
+      --radius-tile: 18px;
+      --radius-btn:  980px;
+
+      --display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --text:    -apple-system, BlinkMacSystemFont, "SF Pro Text",    "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+      --nav-h: 44px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,6 +46,46 @@
       color: var(--white);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    img { max-width: 100%; }
+    a { color: inherit; }
+    :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+    /* ── Type scale ──────────────────────────────────────────────── */
+    .t-hero {
+      font-family: var(--display);
+      font-size: clamp(44px, 7vw, 80px);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+    }
+    .t-headline {
+      font-family: var(--display);
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 600;
+      line-height: 1.07;
+      letter-spacing: -0.28px;
+    }
+    .t-subhead {
+      font-family: var(--display);
+      font-size: clamp(19px, 2.4vw, 28px);
+      font-weight: 400;
+      line-height: 1.14;
+      letter-spacing: 0.007em;
+    }
+    .t-body {
+      font-family: var(--text);
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.47;
+      letter-spacing: -0.374px;
+    }
+    .t-caption {
+      font-family: var(--text);
+      font-size: 14px;
+      line-height: 1.29;
+      letter-spacing: -0.224px;
     }
 
     /* ── Sticky glass nav ────────────────────────────────────────── */
@@ -40,406 +93,322 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 200;
-      height: 48px;
+      height: var(--nav-h);
       background: rgba(0,0,0,0.8);
       backdrop-filter: saturate(180%) blur(20px);
       -webkit-backdrop-filter: saturate(180%) blur(20px);
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
+      padding: 0 22px;
     }
     .nav-brand-group {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      min-width: 0;
     }
     .nav-brand {
       font-family: var(--display);
-      font-size: 17px;
+      font-size: 15px;
       font-weight: 600;
-      letter-spacing: -0.374px;
+      letter-spacing: -0.2px;
       color: var(--white);
       text-decoration: none;
+      white-space: nowrap;
+      opacity: 0.92;
+      transition: opacity 0.15s;
     }
+    .nav-brand:hover { opacity: 1; }
+    .nav-brand-short { display: none; }
     .nav-social {
       display: flex;
       align-items: center;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.5);
       transition: color 0.15s;
     }
     .nav-social:hover { color: var(--white); }
     .nav-links {
       list-style: none;
       display: flex;
-      gap: 28px;
+      gap: 34px;
+      white-space: nowrap;
+      justify-self: center;
     }
     .nav-links a {
       font-family: var(--text);
       font-size: 12px;
       font-weight: 400;
       letter-spacing: -0.12px;
-      color: rgba(255,255,255,0.72);
+      color: rgba(255,255,255,0.8);
       text-decoration: none;
-      transition: color 0.15s;
+      transition: color 0.15s, opacity 0.15s;
     }
     .nav-links a:hover { color: var(--white); }
-    .nav-links a.active {
-      color: var(--white);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
+    .nav-links a.active { color: var(--white); }
 
     /* ── Section base ────────────────────────────────────────────── */
-    .anchor { scroll-margin-top: 48px; }
+    .anchor { scroll-margin-top: var(--nav-h); }
     .section { width: 100%; }
     .section-inner {
       max-width: 980px;
       margin: 0 auto;
       padding: 0 24px;
     }
-    .dark  { background: var(--black); }
-    .light { background: var(--gray-bg); }
+    .dark  { background: var(--black); color: var(--white); }
+    .light { background: var(--gray-bg); color: var(--near-black); }
 
-    /* ── Hero ────────────────────────────────────────────────────── */
-    #homepage {
-      padding-top: 100px;
-      padding-bottom: 48px;
-      display: flex;
-      align-items: center;
+    /* Centered section header — the Apple "headline + subhead" module */
+    .section-header {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 56px;
     }
-    #homepage .section-inner {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 64px;
-      align-items: center;
-      width: 100%;
-    }
-    .hero-eyebrow {
+    .s-eyebrow {
+      display: block;
       font-family: var(--text);
       font-size: 14px;
-      font-weight: 600;           /* raised: eyebrows are labels, need weight */
-      letter-spacing: -0.224px;
-      color: var(--blue-dark);
-      margin-bottom: 16px;
-    }
-    .hero-headline {
-      font-family: var(--display);
-      font-size: clamp(40px, 5.5vw, 56px);
       font-weight: 600;
-      line-height: 1.07;
-      letter-spacing: -0.28px;
-      color: var(--white);
-      margin-bottom: 16px;
+      letter-spacing: -0.224px;
+      margin-bottom: 10px;
     }
-    .hero-sub {
-      font-family: var(--display);
-      font-size: 21px;
-      font-weight: 400;
-      line-height: 1.19;
-      letter-spacing: 0.231px;
-      color: rgba(255,255,255,0.92); /* raised from 0.72 — creates hierarchy over body */
-      margin-bottom: 24px;
+    .dark  .s-eyebrow { color: var(--gray-on-dark); }
+    .light .s-eyebrow { color: var(--gray-on-light); }
+    .s-heading { margin-bottom: 14px; }
+    .s-body { margin: 0 auto; max-width: 62ch; }
+    .dark  .s-body { color: var(--gray-on-dark); }
+    .light .s-body { color: var(--gray-on-light); }
+
+    /* ── Links & buttons ─────────────────────────────────────────── */
+    .link {
+      font-family: var(--text);
+      font-size: 17px;
+      letter-spacing: -0.374px;
+      text-decoration: none;
+      white-space: nowrap;
     }
-    .hero-body {
+    .link::after { content: "\00a0›"; }
+    .link:hover { text-decoration: underline; text-underline-offset: 2px; }
+    .dark  .link { color: var(--blue-dark); }
+    .light .link { color: var(--blue-link); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       font-family: var(--text);
       font-size: 17px;
       font-weight: 400;
-      line-height: 1.6;            /* raised from 1.47 — long paragraph reads easier open */
+      line-height: 1;
       letter-spacing: -0.374px;
-      color: var(--body-dark);     /* 0.72 — clearly below sub */
-      max-width: 54ch;
-      margin-bottom: 36px;
+      padding: 12px 22px;
+      border-radius: var(--radius-btn);
+      border: 1px solid transparent;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s, opacity 0.15s;
     }
-    .hero-ctas {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-    }
+    .btn-blue { background: var(--blue); color: var(--white); }
+    .btn-blue:hover { background: var(--blue-hover); }
+    .btn-dark { background: var(--near-black); color: var(--white); }
+    .btn-dark:hover { background: #2c2c2e; }
+    .btn-outline-dark { color: var(--blue-dark); border-color: var(--blue-dark); }
+    .btn-outline-dark:hover { background: var(--blue-dark); color: var(--black); }
+    .btn-sm { font-size: 14px; letter-spacing: -0.224px; padding: 9px 18px; }
 
-    /* Headshot column */
-    .headshot-wrap {
+    /* ── Hero ────────────────────────────────────────────────────── */
+    #homepage {
+      padding: calc(var(--nav-h) + 88px) 0 72px;
+    }
+    #homepage .section-inner {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
+      text-align: center;
     }
     .headshot-clip {
-      width: 260px;
-      height: 260px;
-      border-radius: 14px;
+      width: 132px;
+      height: 132px;
+      border-radius: 34px;
       overflow: hidden;
-      background: #000;
+      background: #1d1d1f;
+      margin-bottom: 34px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
     }
     .headshot-img {
-      width: 260px;
-      height: 260px;
-      border-radius: 0;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       object-position: center center;
       display: block;
       transform: scale(1.1);
       transform-origin: center center;
     }
+    .hero-eyebrow {
+      font-family: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.224px;
+      color: var(--gray-on-dark);
+      margin-bottom: 14px;
+    }
+    .hero-headline {
+      color: var(--white);
+      margin-bottom: 18px;
+      max-width: 14ch;
+    }
+    .hero-sub {
+      color: var(--white);
+      max-width: 30ch;
+      margin-bottom: 24px;
+    }
+    .hero-body {
+      color: var(--gray-on-dark);
+      max-width: 58ch;
+      margin-bottom: 34px;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 28px;
+      align-items: center;
+      justify-content: center;
+    }
+
     /* ── Jobs quote bar ─────────────────────────────────────────── */
     .jobs-quote-bar {
       background: var(--black);
-      padding: 48px 24px 56px;
+      padding: 24px 24px 96px;
       display: flex;
       justify-content: center;
     }
     .jobs-quote {
       margin: 0;
       text-align: center;
+      max-width: 820px;
     }
     .jobs-quote p {
-      font-family: "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: clamp(22px, 3vw, 32px);
-      font-weight: 300;
-      font-style: italic;
-      letter-spacing: -0.02em;
-      color: rgba(255,255,255,0.82);
-      margin: 0 0 10px;
-      line-height: 1.3;
+      font-family: var(--display);
+      font-size: clamp(21px, 2.8vw, 30px);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: rgba(255,255,255,0.86);
+      margin: 0 0 12px;
+      line-height: 1.25;
     }
     .jobs-quote cite {
-      font-family: "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: 13px;
+      font-family: var(--text);
+      font-size: 14px;
       font-style: normal;
       font-weight: 400;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.28);
-    }
-
-    .headshot-disclaimer {
-      font-family: var(--text);
-      font-size: 11px;
-      letter-spacing: 0.01em;
-      color: rgba(255,255,255,0.25);
-      text-align: center;
-      margin: 0;
-    }
-
-    /* ── Buttons ─────────────────────────────────────────────────── */
-    .btn-blue {
-      display: inline-block;
-      background: var(--blue);
-      color: var(--white);
-      font-family: var(--text);
-      font-size: 17px;
-      font-weight: 400;
-      line-height: 1;
-      letter-spacing: -0.374px;
-      padding: 10px 20px;
-      border-radius: 8px;
-      border: 1px solid transparent;
-      text-decoration: none;
-      transition: background 0.15s;
-    }
-    .btn-blue:hover { background: #0077ed; }
-
-    .btn-pill-dark {
-      display: inline-block;
-      color: var(--blue-dark);
-      font-family: var(--text);
-      font-size: 17px;
-      font-weight: 400;
-      line-height: 1;
-      letter-spacing: -0.374px;
-      padding: 10px 20px;
-      border-radius: 980px;
-      border: 1px solid var(--blue-dark);
-      text-decoration: none;
-      transition: opacity 0.15s;
-    }
-    .btn-pill-dark:hover { opacity: 0.8; }
-
-    .learn-more-dark {
-      font-family: var(--text);
-      font-size: 14px;
-      font-weight: 400;
       letter-spacing: -0.224px;
-      color: var(--blue-dark);
-      text-decoration: none;
-    }
-    .learn-more-dark:hover { text-decoration: underline; }
-    .learn-more-dark::after { content: " ›"; }
-
-    .learn-more-light {
-      font-family: var(--text);
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: -0.224px;
-      color: var(--blue-link);
-      text-decoration: none;
-    }
-    .learn-more-light:hover { text-decoration: underline; }
-    .learn-more-light::after { content: " ›"; }
-
-    /* ── Shared section header ───────────────────────────────────── */
-    .s-eyebrow-dark {
-      display: block;
-      font-family: var(--text);
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: -0.224px;
-      color: var(--blue-dark);
-      margin-bottom: 12px;
-    }
-    .s-eyebrow-light {
-      display: block;
-      font-family: var(--text);
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: -0.224px;
-      color: var(--blue);
-      margin-bottom: 12px;
-    }
-    .s-heading-dark {
-      font-family: var(--display);
-      font-size: clamp(32px, 4vw, 40px);
-      font-weight: 600;
-      line-height: 1.10;
-      color: var(--white);
-      margin-bottom: 16px;
-    }
-    .s-heading-light {
-      font-family: var(--display);
-      font-size: clamp(32px, 4vw, 40px);
-      font-weight: 600;
-      line-height: 1.10;
-      color: var(--near-black);
-      margin-bottom: 16px;
-    }
-    .s-body-dark {
-      font-family: var(--text);
-      font-size: 17px;
-      line-height: 1.53;
-      letter-spacing: -0.374px;
-      color: var(--body-dark);
-      max-width: 60ch;
-      margin-top: 4px;
-      margin-bottom: 0;
-    }
-    .s-body-light {
-      font-family: var(--text);
-      font-size: 17px;
-      line-height: 1.53;
-      letter-spacing: -0.374px;
-      color: var(--body-light);
-      max-width: 60ch;
-      margin-top: 4px;
-      margin-bottom: 0;
+      color: var(--gray-on-dark);
     }
 
     /* ── Experience section ──────────────────────────────────────── */
-    #experience { padding: 100px 0; }
-    #experience .section-inner { padding: 0 24px; }
-
-    .section-header {
-      margin-bottom: 48px;
-    }
+    #experience { padding: 110px 0; }
 
     .timeline {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 16px;
     }
     .timeline-item {
       background: var(--white);
-      border-radius: 12px;
-      padding: 22px 26px;
-      box-shadow: var(--card-shadow);
-      transition: transform 0.22s ease, box-shadow 0.22s ease;
-    }
-    .timeline-item:hover {
-      transform: translateY(-3px);
-      box-shadow: rgba(0,0,0,0.16) 0 8px 32px 0;
+      border-radius: var(--radius-tile);
+      padding: 32px 36px;
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: 12px 40px;
     }
     .tl-role {
       font-family: var(--display);
-      font-size: 18px;
-      font-weight: 700;
-      line-height: 1.19;
-      letter-spacing: 0.231px;
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.16;
+      letter-spacing: 0.009em;
       color: var(--near-black);
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
     .tl-company {
       font-family: var(--text);
-      font-size: 15px;            /* raised from 14 — company name is key info */
-      font-weight: 400;
-      letter-spacing: -0.224px;
-      color: rgba(0,0,0,0.64);   /* raised from 0.56 — better contrast on gray */
+      font-size: 17px;
+      letter-spacing: -0.374px;
+      color: var(--near-black);
       margin-bottom: 4px;
     }
     .tl-dates {
       font-family: var(--text);
-      font-size: 13px;            /* raised from 12 — 12px at low opacity is hard to read */
-      font-weight: 400;
-      letter-spacing: -0.12px;
-      color: rgba(0,0,0,0.52);   /* raised from 0.48 — was ~2.1:1 contrast, now ~2.8:1 */
-      margin-bottom: 20px;
+      font-size: 14px;
+      letter-spacing: -0.224px;
+      color: var(--gray-on-light);
     }
     .tl-bullets {
       list-style: none;
       padding: 0;
       display: flex;
       flex-direction: column;
-      gap: 10px;                  /* raised from 8 — tighter gap made dense text harder to parse */
+      gap: 10px;
     }
     .tl-bullets li {
       font-family: var(--text);
-      font-size: 16px;            /* raised from 15 — closer to 17px body standard */
-      line-height: 1.5;           /* slightly open for multi-line bullet readability */
-      letter-spacing: -0.224px;
-      color: var(--body-light);
-      padding-left: 16px;
+      font-size: 17px;
+      line-height: 1.47;
+      letter-spacing: -0.374px;
+      color: var(--near-black);
+      padding-left: 18px;
       position: relative;
     }
     .tl-bullets li::before {
-      content: "–";
+      content: "";
       position: absolute;
       left: 0;
-      color: rgba(0,0,0,0.36);   /* softer dash — the text should lead, not the marker */
+      top: 0.62em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gray-on-light);
+      opacity: 0.55;
     }
+
     /* Skills marquee */
-    .skills-block { margin-top: 64px; }
+    .skills-block { margin-top: 72px; }
     .skills-label {
       font-family: var(--display);
       font-size: 28px;
-      font-weight: 400;
+      font-weight: 600;
       line-height: 1.14;
-      letter-spacing: 0.196px;
+      letter-spacing: 0.007em;
       color: var(--near-black);
-      margin-bottom: 20px;
-      padding: 0 24px;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .skills-hint {
+      font-family: var(--text);
+      font-size: 14px;
+      letter-spacing: -0.224px;
+      color: var(--gray-on-light);
+      text-align: center;
+      margin-bottom: 24px;
     }
     .skills-marquee {
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      -webkit-mask-image: linear-gradient(to right, transparent, black 7%, black 93%, transparent);
-      mask-image:         linear-gradient(to right, transparent, black 7%, black 93%, transparent);
+      gap: 10px;
+      -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+      mask-image:         linear-gradient(to right, transparent, black 8%, black 92%, transparent);
     }
     .skills-track {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       width: max-content;
     }
-    .skills-track--fwd  { animation: marquee-fwd 60s linear infinite; }
-    .skills-track--rev  { animation: marquee-rev 85s linear infinite; }
-    .skills-track--back { animation: marquee-fwd 90s linear infinite; }
-    .skill-tag[data-project] { cursor: pointer; }
-    .skill-tag:hover {
-      background: var(--blue);
-      color: var(--white);
-      box-shadow: rgba(0,113,227,0.3) 0 2px 12px 0;
-    }
+    .skills-track--fwd  { animation: marquee-fwd 70s linear infinite; }
+    .skills-track--rev  { animation: marquee-rev 95s linear infinite; }
+    .skills-track--back { animation: marquee-fwd 100s linear infinite; }
+    .skills-marquee:hover .skills-track { animation-play-state: paused; }
     @keyframes marquee-fwd {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
@@ -455,98 +424,68 @@
       letter-spacing: -0.224px;
       color: var(--near-black);
       background: var(--white);
-      padding: 7px 14px;
-      border-radius: 980px;
-      box-shadow: rgba(0,0,0,0.1) 0 1px 4px 0;
+      padding: 9px 16px;
+      border-radius: var(--radius-btn);
+      border: 1px solid transparent;
       white-space: nowrap;
       flex-shrink: 0;
-      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .skill-tag[data-project] { cursor: pointer; }
+    .skill-tag:hover {
+      background: var(--blue);
+      color: var(--white);
     }
 
     /* ── Portfolio section ───────────────────────────────────────── */
-    #portfolio { padding: 100px 0; }
-    #portfolio .section-inner { padding: 0 24px; }
+    #portfolio { padding: 110px 0; }
 
-    /* ── Portfolio filter bar ──────────────────────────────────── */
     .portfolio-filters {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
-      margin-top: 40px;
+      justify-content: center;
+      margin-top: -16px;
     }
     .pf-btn {
       font-family: var(--text);
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: -0.12px;
-      padding: 6px 16px;
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: transparent;
-      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: -0.224px;
+      padding: 8px 18px;
+      border-radius: var(--radius-btn);
+      border: 1px solid transparent;
+      background: var(--fill-dark);
+      color: rgba(255,255,255,0.85);
       cursor: pointer;
-      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      transition: background 0.15s, color 0.15s;
     }
-    .pf-btn:hover {
-      color: var(--white);
-      border-color: rgba(255,255,255,0.4);
-    }
-    .pf-btn.active {
-      background: var(--blue);
-      border-color: var(--blue);
-      color: var(--white);
-    }
+    .pf-btn:hover { background: rgba(255,255,255,0.16); color: var(--white); }
+    .pf-btn.active { background: var(--white); color: var(--near-black); }
 
-    /* Scroll wrapper — handles overflow so the inner grid isn't clipped */
+    /* Scroll wrapper */
     .portfolio-scroll {
       overflow-x: auto;
-      overflow-y: visible;
+      overflow-y: hidden;
       margin-top: 24px;
       cursor: grab;
       /* side padding = half container width minus half card width → centers first/last card */
-      padding: 24px calc(50% - 150px) 28px;
+      padding: 24px calc(50% - 170px) 24px;
       scrollbar-width: none;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
     }
     .portfolio-scroll::-webkit-scrollbar { display: none; }
 
-    /* Scroll tracker */
-    .carousel-tracker {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 20px;
-    }
-    .tracker-dots {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      background: rgba(255, 255, 255, 0.10);
-      padding: 12px 20px;
-      border-radius: 30px;
-    }
-    .tracker-dot {
-      height: 8px;
-      width: 8px;
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.35);
-      transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      flex-shrink: 0;
-    }
-    .tracker-dot.active {
-      width: 30px;
-      background: rgba(255, 255, 255, 0.92);
-    }
-
     .portfolio-grid {
       display: flex;
       flex-direction: row;
       gap: 20px;
+      width: max-content; /* keep trailing scroll padding so the last tile can center */
     }
     .portfolio-grid .project-card {
-      flex: 0 0 300px;
+      flex: 0 0 340px;
+      height: 460px;
       scroll-snap-align: center;
       transform-origin: center center;
       transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
@@ -555,41 +494,172 @@
     }
     .project-card[hidden] { display: none; }
     .project-card {
+      position: relative;
       background: var(--white);
-      border-radius: 12px;
+      border-radius: var(--radius-tile);
       overflow: hidden;
-      box-shadow: var(--card-shadow);
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+      color: var(--near-black);
     }
-    .project-card:hover {
-      box-shadow: rgba(0,0,0,0.3) 3px 10px 44px 0px;
+    .project-card:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
+    .project-card--source { visibility: hidden !important; }
+
+    /* Tile layout: text on top, image bleeding off the bottom (Apple homepage tile) */
+    .portfolio-grid .card-body {
+      padding: 30px 28px 0;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
     }
-    .project-card:focus-visible {
-      outline: 3px solid var(--blue);
-      outline-offset: 3px;
+    .card-title {
+      font-family: var(--display);
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.14;
+      letter-spacing: 0.007em;
+      color: var(--near-black);
+      margin-bottom: 8px;
     }
+    .card-desc-short {
+      font-family: var(--text);
+      font-size: 14px;
+      line-height: 1.43;
+      letter-spacing: -0.224px;
+      color: var(--gray-on-light);
+      margin-bottom: 12px;
+    }
+    .card-cta {
+      font-family: var(--text);
+      font-size: 14px;
+      letter-spacing: -0.224px;
+      color: var(--blue-link);
+      margin-bottom: 22px;
+    }
+    .card-cta::after { content: "\00a0›"; }
+    .project-card:hover .card-cta { text-decoration: underline; text-underline-offset: 2px; }
+
+    .tile-media {
+      margin-top: auto;
+      height: 210px;
+      flex-shrink: 0;
+      border-radius: 12px 12px 0 0;
+      overflow: hidden;
+      background: var(--gray-bg);
+      position: relative;
+      margin-left: 24px;
+      margin-right: 24px;
+      box-shadow: 0 -1px 0 var(--hair-light);
+    }
+    .tile-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+    .tile-media--doc {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 22px 24px 0;
+      background: linear-gradient(180deg, #e8e8ed 0%, #f5f5f7 100%);
+    }
+    .doc-mock {
+      width: 100%;
+      background: var(--white);
+      border-radius: 8px 8px 0 0;
+      padding: 18px 18px 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .doc-mock span {
+      display: block;
+      height: 8px;
+      border-radius: 4px;
+      background: #e8e8ed;
+    }
+    .doc-mock span:first-child { height: 14px; width: 55%; background: #d2d2d7; }
+    .doc-mock span:nth-child(2) { width: 88%; }
+    .doc-mock span:nth-child(3) { width: 76%; }
+    .doc-mock span:nth-child(4) { width: 92%; }
+    .doc-mock span:nth-child(5) { width: 64%; }
+    .doc-mock span:nth-child(6) { width: 80%; }
+    .doc-mock span:nth-child(7) { width: 70%; }
+
+    /* Elements that only live in the expanded view */
+    .card-desc, .card-media-row, .card-image, .card-placeholder,
+    .card-resource-link, .card-skills { display: none; }
+
+    /* Carousel controls */
+    .carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 8px;
+    }
+    .carousel-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: var(--fill-dark);
+      color: rgba(255,255,255,0.85);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.15s, opacity 0.15s;
+    }
+    .carousel-btn:hover { background: rgba(255,255,255,0.18); color: var(--white); }
+    .carousel-btn:active { transform: scale(0.92); }
+    .carousel-btn[disabled] { opacity: 0.3; cursor: default; }
+    .carousel-btn svg { display: block; }
+    .tracker-dots {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--fill-dark);
+      padding: 12px 18px;
+      border-radius: 30px;
+    }
+    .tracker-dot {
+      height: 8px;
+      width: 8px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.38);
+      transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.3s;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .tracker-dot.active {
+      width: 28px;
+      background: rgba(255,255,255,0.95);
+    }
+
     @keyframes card-pulse {
-      0%   { outline-color: transparent;        outline-offset: 0px; }
-      35%  { outline-color: #0071e3;             outline-offset: 2px; }
-      65%  { outline-color: #0071e3;             outline-offset: 2px; }
-      100% { outline-color: transparent;         outline-offset: 9px; }
+      0%   { outline-color: transparent; outline-offset: 0px; }
+      35%  { outline-color: #0071e3;     outline-offset: 3px; }
+      65%  { outline-color: #0071e3;     outline-offset: 3px; }
+      100% { outline-color: transparent; outline-offset: 10px; }
     }
     .card-pulse {
-      outline: 6px solid transparent;
+      outline: 5px solid transparent;
       outline-offset: 0px;
       animation: card-pulse 1.2s ease-in-out 2;
     }
 
-/* ── Portfolio tile expansion ───────────────────────────── */
-    .project-card { position: relative; cursor: pointer; }
-    .project-card--source { visibility: hidden !important; }
-
+    /* ── Tile expansion (modal sheet) ────────────────────────────── */
     #card-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.55);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       z-index: 100;
@@ -597,16 +667,14 @@
       pointer-events: none;
       transition: opacity 0.4s ease;
     }
-    #card-backdrop.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    #card-backdrop.active { opacity: 1; pointer-events: auto; }
 
     #card-expanded {
       position: fixed;
-      z-index: 200;
+      z-index: 210;
       background: var(--white);
-      border-radius: 12px;
+      color: var(--near-black);
+      border-radius: var(--radius-tile);
       overflow: hidden;
       box-shadow: 0 36px 90px rgba(0,0,0,0.5);
       display: flex;
@@ -621,18 +689,12 @@
                   border-radius 0.48s cubic-bezier(0.4, 0, 0.2, 1),
                   box-shadow 0.48s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    #card-expanded.expanding {
-      visibility: visible;
-      pointer-events: auto;
-    }
-    #card-expanded .thumb-area {
-      flex-shrink: 0;
-      max-height: 200px;
-    }
+    #card-expanded.expanding { visibility: visible; pointer-events: auto; }
+    #card-expanded .tile-media { display: none; }
     #card-expanded .card-body {
       flex: 1;
       overflow-y: auto;
-      padding: 28px 32px 36px;
+      padding: 44px 40px 40px;
       opacity: 0;
       transform: translateY(22px);
     }
@@ -643,59 +705,61 @@
       to { opacity: 1; transform: translateY(0); }
     }
     #card-expanded .card-title {
-      font-size: 24px;
-      margin-bottom: 12px;
+      font-size: 32px;
+      line-height: 1.1;
+      letter-spacing: 0.004em;
+      margin-bottom: 8px;
+      padding-right: 44px;
     }
+    #card-expanded .card-desc-short {
+      font-family: var(--display);
+      font-size: 19px;
+      line-height: 1.26;
+      letter-spacing: 0.01em;
+      color: var(--gray-on-light);
+      margin-bottom: 26px;
+      padding-right: 44px;
+    }
+    #card-expanded .card-cta { display: none; }
     #card-expanded .card-desc {
       display: block;
-      font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 20px;
+      font-family: var(--text);
+      font-size: 17px;
+      line-height: 1.53;
+      letter-spacing: -0.374px;
+      color: var(--near-black);
+      margin-bottom: 0;
     }
-    #card-expanded .card-desc-short { display: none; }
 
-    /* ── Card media row (expanded only): description + image/placeholder ── */
-    .card-placeholder, .card-image { display: none; }
     #card-expanded .card-media-row {
       display: flex;
       flex-direction: row;
-      gap: 24px;
-      margin-bottom: 20px;
+      gap: 28px;
+      margin-bottom: 28px;
       align-items: stretch;
     }
-    #card-expanded .card-media-row > .card-desc {
-      flex: 1 1 0;
-      min-width: 0;
-      margin-bottom: 0;
-    }
+    #card-expanded .card-media-row > .card-desc { flex: 1 1 0; min-width: 0; }
     #card-expanded .card-media-row > .card-desc-col {
       flex: 1 1 0;
       min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
     }
-    #card-expanded .card-desc-col .card-desc {
-      flex: 0 0 auto;
-      margin-bottom: 0;
-    }
-    .card-resource-link { display: none; }
+    #card-expanded .card-desc-col .card-desc { flex: 0 0 auto; }
     #card-expanded .card-resource-link {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       font-family: var(--text);
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--blue);
+      font-size: 14px;
+      letter-spacing: -0.224px;
+      color: var(--blue-link);
       text-decoration: none;
       align-self: flex-start;
-      padding: 6px 12px 6px 10px;
-      border-radius: 999px;
-      background: rgba(0, 113, 227, 0.08);
-      transition: background 0.15s ease;
     }
-    #card-expanded .card-resource-link:hover { background: rgba(0, 113, 227, 0.15); }
+    #card-expanded .card-resource-link::after { content: "\00a0›"; }
+    #card-expanded .card-resource-link:hover { text-decoration: underline; text-underline-offset: 2px; }
     #card-expanded .card-resource-link svg { flex-shrink: 0; }
     #card-expanded .card-image {
       display: block;
@@ -704,7 +768,7 @@
       max-height: 420px;
       width: auto;
       object-fit: contain;
-      border-radius: 8px;
+      border-radius: 12px;
       background: var(--gray-bg);
       align-self: stretch;
     }
@@ -713,16 +777,16 @@
       flex: 0 0 40%;
       min-height: 280px;
       background: var(--gray-bg);
-      border-radius: 8px;
+      border-radius: 12px;
       align-items: center;
       justify-content: center;
       flex-direction: column;
       gap: 10px;
       padding: 24px;
       text-align: center;
-      color: var(--dim-light);
+      color: var(--gray-on-light);
     }
-    #card-expanded .card-placeholder svg { opacity: 0.3; }
+    #card-expanded .card-placeholder svg { opacity: 0.35; }
     #card-expanded .card-placeholder span {
       font-family: var(--text);
       font-size: 12px;
@@ -734,459 +798,289 @@
       #card-expanded .card-placeholder { flex: 1 1 auto; min-height: 180px; max-height: none; }
     }
 
-    #card-expanded .card-skills li { font-size: 13px; }
+    #card-expanded .card-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+      padding: 24px 0 0;
+      border-top: 1px solid var(--hair-light);
+    }
     #card-expanded .card-skills::before {
-      content: 'Skills Applied';
-      display: block;
+      content: "Skills applied";
+      flex-basis: 100%;
       font-family: var(--text);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--dim-light);
-      margin-bottom: 8px;
+      letter-spacing: -0.12px;
+      color: var(--gray-on-light);
+      margin-bottom: 2px;
+    }
+    #card-expanded .card-skills li {
+      font-family: var(--text);
+      font-size: 13px;
+      letter-spacing: -0.12px;
+      color: var(--near-black);
+      background: var(--gray-bg);
+      padding: 6px 12px;
+      border-radius: var(--radius-btn);
     }
 
     .card-expanded-close {
       position: absolute;
-      top: 16px;
-      right: 16px;
-      background: none;
+      top: 18px;
+      right: 18px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #e8e8ed;
       border: none;
       cursor: pointer;
-      padding: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       z-index: 10;
       color: var(--near-black);
-      opacity: 0.5;
-      transition: opacity 0.15s;
+      transition: background 0.15s, transform 0.15s;
     }
-    .card-expanded-close:hover { opacity: 1; }
+    .card-expanded-close:hover { background: #dcdce1; }
+    .card-expanded-close:active { transform: scale(0.94); }
     .card-expanded-close svg { display: block; }
 
-    /* Thumb */
-    .thumb-area {
-      aspect-ratio: 16/10;
-      background: var(--gray-bg);
-      overflow: hidden;
+    /* ── Resume section ──────────────────────────────────────────── */
+    #resume { padding: 110px 0; }
+    #resume .section-inner { max-width: 900px; }
+    .resume-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      gap: 64px;
+      align-items: center;
+    }
+    .resume-doc {
       position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .thumb-area img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      position: absolute;
-      inset: 0;
-    }
-    .thumb-fallback {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 24px;
-      text-align: center;
-    }
-    .thumb-fallback svg { opacity: 0.25; }
-    .thumb-fallback span {
-      font-family: var(--text);
-      font-size: 12px;
-      letter-spacing: -0.12px;
-      color: var(--dim-light);
-    }
-    /* Show fallback when image fails */
-    .thumb-area img.broken { display: none; }
-    .thumb-area img.broken + .thumb-fallback { display: flex; }
-
-    /* Hide thumb in carousel; show only in expanded view */
-    .portfolio-grid .project-card .thumb-area { display: none; }
-    #card-expanded .thumb-area { display: flex; }
-
-    /* ── Poster aside (FSU Web) ─────────────────────────────── */
-    .card-poster { display: none; }
-    .card-body--with-poster .card-main {
+      aspect-ratio: 8.5/11;
+      border-radius: 6px;
+      background: var(--white);
+      padding: 34px 32px;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.14), 0 6px 18px rgba(0,0,0,0.06);
       display: flex;
       flex-direction: column;
-      flex: 1;
-      min-width: 0;
-    }
-
-    #card-expanded .card-body--with-poster {
-      flex-direction: row;
-      gap: 28px;
-      align-items: flex-start;
-    }
-    #card-expanded .card-poster {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      flex: 0 0 220px;
-      align-items: center;
-      position: sticky;
-      top: 0;
-    }
-    #card-expanded .poster-trigger {
-      display: block;
-      padding: 0;
-      margin: 0;
-      width: 100%;
-      background: transparent;
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: 8px;
+      gap: 12px;
       overflow: hidden;
-      cursor: zoom-in;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    #card-expanded .poster-trigger:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 28px rgba(0,0,0,0.16);
-    }
-    #card-expanded .poster-trigger:focus-visible {
-      outline: 2px solid var(--near-black);
-      outline-offset: 3px;
-    }
-    #card-expanded .poster-trigger img {
-      display: block;
+      max-width: 380px;
       width: 100%;
-      height: auto;
+      justify-self: center;
+      text-decoration: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
-    #card-expanded .poster-caption {
+    .resume-doc:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.18), 0 8px 22px rgba(0,0,0,0.08);
+    }
+    .resume-doc-name {
+      font-family: var(--display);
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      color: var(--near-black);
+      margin-bottom: 2px;
+    }
+    .resume-doc-sub {
       font-family: var(--text);
       font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      color: var(--dim-light);
-      text-align: center;
-      line-height: 1.5;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
+      letter-spacing: -0.1px;
+      color: var(--gray-on-light);
+      margin-bottom: 14px;
     }
-    #card-expanded .poster-caption-hint {
+    .resume-doc-section {
+      font-family: var(--text);
       font-size: 10px;
-      font-weight: 400;
+      font-weight: 600;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      opacity: 0.6;
+      color: var(--gray-on-light);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--hair-light);
     }
-
-    /* Stack when narrow */
-    @media (max-width: 640px) {
-      #card-expanded .card-body--with-poster {
-        flex-direction: column;
-      }
-      #card-expanded .card-poster {
-        flex: 0 0 auto;
-        width: 100%;
-        max-width: 260px;
-        align-self: center;
-        position: static;
-      }
+    .resume-doc-line {
+      height: 7px;
+      border-radius: 4px;
+      background: #e8e8ed;
     }
-
-    /* ── Poster lightbox ────────────────────────────────────── */
-    .poster-lightbox {
-      position: fixed;
-      inset: 0;
-      z-index: 300;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
-      background: rgba(0,0,0,0.88);
-      cursor: zoom-out;
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    }
-    .poster-lightbox.active {
-      display: flex;
-      opacity: 1;
-    }
-    .poster-lightbox__img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
-      border-radius: 8px;
-      cursor: default;
-    }
-    .poster-lightbox__close {
+    .resume-doc-line.w1 { width: 92%; }
+    .resume-doc-line.w2 { width: 78%; }
+    .resume-doc-line.w3 { width: 86%; }
+    .resume-doc-line.w4 { width: 64%; }
+    .resume-doc::after {
+      content: "";
       position: absolute;
-      top: 20px;
-      right: 24px;
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 34px;
-      line-height: 1;
-      cursor: pointer;
-      opacity: 0.7;
-      padding: 6px 12px;
-      transition: opacity 0.2s ease;
+      left: 0; right: 0; bottom: 0;
+      height: 90px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0), #fff 80%);
+      pointer-events: none;
     }
-    .poster-lightbox__close:hover { opacity: 1; }
 
-    /* Card body */
-    .card-body {
-      padding: 24px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    .card-title {
+    .resume-info { display: flex; flex-direction: column; gap: 28px; }
+    .resume-info h3 {
       font-family: var(--display);
-      font-size: 21px;
-      font-weight: 700;
-      line-height: 1.19;
-      letter-spacing: 0.231px;
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.14;
+      letter-spacing: 0.007em;
       color: var(--near-black);
       margin-bottom: 8px;
     }
-    .card-desc {
+    .resume-info p {
       font-family: var(--text);
-      font-size: 14px;
-      font-weight: 400;
+      font-size: 17px;
       line-height: 1.47;
-      letter-spacing: -0.224px;
-      color: var(--body-light);
-      flex: 1;
-      margin-bottom: 16px;
-      display: none;
+      letter-spacing: -0.374px;
+      color: var(--gray-on-light);
     }
-    .card-desc-short {
-      font-family: var(--text);
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1.47;
-      letter-spacing: -0.224px;
-      color: var(--body-light);
-      flex: 1;
-      margin-bottom: 16px;
-    }
-    .card-skills {
+    .resume-meta {
       list-style: none;
-      padding: 0;
       display: flex;
       flex-direction: column;
-      gap: 3px;
-      margin-bottom: 16px;
+      border-top: 1px solid var(--hair-light);
     }
-    .card-skills li {
+    .resume-meta li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
       font-family: var(--text);
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: -0.12px;
-      color: var(--dim-light);
+      font-size: 14px;
+      letter-spacing: -0.224px;
+      color: var(--near-black);
+      padding: 12px 0;
+      border-bottom: 1px solid var(--hair-light);
     }
-    .card-skills li::before { content: "· "; }
+    .resume-meta svg { flex-shrink: 0; color: var(--gray-on-light); }
+    .resume-cta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px 28px;
+    }
 
     /* ── Contact ─────────────────────────────────────────────────── */
-    #contact { padding: 100px 0; }
-    #contact .section-inner { padding: 0 24px; }
-
+    #contact { padding: 110px 0; }
     .contact-layout {
       display: grid;
-      grid-template-columns: 5fr 7fr;
+      grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
       gap: 80px;
-      margin-top: 56px;
       align-items: start;
+      max-width: 860px;
+      margin: 0 auto;
     }
-
     .contact-direct-label {
       display: block;
       font-family: var(--text);
-      font-size: 11px;
+      font-size: 14px;
       font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 20px;
+      letter-spacing: -0.224px;
+      color: var(--gray-on-dark);
+      margin-bottom: 8px;
     }
-
     .contact-links {
       list-style: none;
       display: flex;
       flex-direction: column;
     }
-    .contact-links li {
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-    .contact-links li:last-child {
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
+    .contact-links li { border-top: 1px solid var(--hair-dark); }
+    .contact-links li:last-child { border-bottom: 1px solid var(--hair-dark); }
     .contact-links a {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       font-family: var(--text);
       font-size: 17px;
       letter-spacing: -0.374px;
       color: var(--white);
       text-decoration: none;
-      padding: 14px 0;
+      padding: 16px 0;
       transition: color 0.15s;
     }
     .contact-links a:hover { color: var(--blue-dark); }
-    .contact-links svg {
-      flex-shrink: 0;
-      color: rgba(255,255,255,0.4);
-      transition: color 0.15s;
-    }
+    .contact-links svg { flex-shrink: 0; color: var(--gray-on-dark); transition: color 0.15s; }
     .contact-links a:hover svg { color: var(--blue-dark); }
-
-    @media (max-width: 768px) {
-      .contact-layout { grid-template-columns: 1fr; gap: 48px; }
-    }
-
-    /* ── Resume section ──────────────────────────────────────────── */
-    #resume { padding: 100px 0; }
-    #resume .section-inner {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-    .resume-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: center;
-      margin-top: 56px;
-    }
-    /* Left: resume preview */
-    .resume-doc {
-      position: relative;
-      aspect-ratio: 8.5/11;
-      border-radius: 12px;
-      background: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 28px;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.18), 0 8px 24px rgba(0,0,0,0.10);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .resume-doc:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 52px 96px rgba(0,0,0,0.22), 0 12px 32px rgba(0,0,0,0.12);
-    }
-    .resume-preview-content {
-      max-width: 26ch;
-    }
-    .resume-preview-title {
-      font-family: var(--display);
-      font-size: 19px;
-      font-weight: 600;
-      color: var(--near-black);
-      letter-spacing: -0.2px;
-      margin-bottom: 8px;
-    }
-    .resume-preview-text {
+    .contact-note {
       font-family: var(--text);
-      font-size: 14px;
-      line-height: 1.5;
-      color: var(--muted-light);
+      font-size: 17px;
+      line-height: 1.47;
+      letter-spacing: -0.374px;
+      color: var(--gray-on-dark);
+      padding-top: 30px;
     }
-
-    /* Right: info + CTA */
-    .resume-info {
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
-    }
-    .resume-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .resume-meta-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--text);
-      font-size: 13px;
-      color: var(--muted-light);
-    }
-    .resume-meta-row svg { flex-shrink: 0; color: var(--blue); }
-    .resume-cta {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .resume-download-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--near-black);
-      color: var(--white);
-      font-family: var(--text);
-      font-size: 14px;
-      font-weight: 500;
-      padding: 14px 24px;
-      border-radius: 980px;
-      text-decoration: none;
-      transition: background 0.15s, transform 0.15s;
-      width: fit-content;
-    }
-    .resume-download-btn:hover {
-      background: #333;
-      transform: translateY(-1px);
-    }
-    .resume-note {
-      font-family: var(--text);
-      font-size: 11px;
-      color: var(--dim-light);
-    }
-    @media (max-width: 700px) {
-      .resume-layout {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-      .resume-doc { max-width: 280px; margin: 0 auto; }
-    }
+    .contact-note .link { display: inline-block; margin-top: 14px; }
 
     /* ── Footer ──────────────────────────────────────────────────── */
     footer {
       background: var(--black);
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding: 48px 24px;
-      text-align: center;
+      padding: 0 24px 40px;
     }
-    footer p {
+    .footer-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      border-top: 1px solid var(--hair-dark);
+      padding-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px 24px;
+    }
+    footer p, footer a {
       font-family: var(--text);
       font-size: 12px;
-      font-weight: 400;
       letter-spacing: -0.12px;
-      color: rgba(255,255,255,0.4);
+      color: var(--gray-on-dark);
+      text-decoration: none;
     }
+    footer a:hover { color: var(--white); }
+    .footer-links { display: flex; gap: 20px; list-style: none; }
 
     /* ── Responsive ──────────────────────────────────────────────── */
     @media (max-width: 768px) {
-      #homepage .section-inner {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-      .headshot-clip {
-        width: 160px;
-        height: 160px;
-      }
-      .headshot-img {
-        width: 160px;
-        height: 160px;
-      }
-      .nav-links { gap: 20px; }
-      .hero-headline { font-size: 36px; }
+      .timeline-item { grid-template-columns: 1fr; padding: 26px 24px; gap: 14px; }
+      .resume-layout { grid-template-columns: 1fr; gap: 44px; }
+      .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+      .contact-note { padding-top: 0; }
+      .section-header { margin-bottom: 40px; }
     }
-    @media (max-width: 480px) {
-      .nav-brand { font-size: 14px; }
-      .nav-links { gap: 14px; }
-      .portfolio-scroll { padding-left: calc(50% - 130px); padding-right: calc(50% - 130px); }
-      .portfolio-grid .project-card { flex: 0 0 260px; }
-      #homepage, #experience, #portfolio, #resume { padding-top: 80px; padding-bottom: 80px; }
+    @media (max-width: 520px) {
+      .nav { padding: 0 16px; grid-template-columns: auto 1fr; }
+      .nav-social { display: none; }
+      .nav-brand-full { display: none; }
+      .nav-brand-short { display: inline; }
+      .nav-links { gap: 14px; justify-self: end; }
+      .portfolio-scroll { padding-left: calc(50% - 140px); padding-right: calc(50% - 140px); }
+      .portfolio-grid .project-card { flex: 0 0 280px; height: 420px; }
+      .tile-media { height: 180px; margin-left: 20px; margin-right: 20px; }
+      #homepage { padding: calc(var(--nav-h) + 64px) 0 56px; }
+      #experience, #portfolio, #resume, #contact { padding: 84px 0; }
+      .jobs-quote-bar { padding-bottom: 72px; }
+      .skills-block { margin-top: 56px; }
+      #card-expanded .card-body { padding: 36px 24px 32px; }
+      #card-expanded .card-title { font-size: 26px; }
+      #card-expanded .card-desc-short { font-size: 17px; }
+    }
+    @media (max-width: 360px) {
+      .nav-links { gap: 10px; }
+      .nav-links a { font-size: 11px; }
+    }
+
+    /* ── Reduced motion ──────────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .skills-track--fwd, .skills-track--rev, .skills-track--back { animation: none; }
+      .skills-marquee { -webkit-mask-image: none; mask-image: none; }
+      .skills-track { flex-wrap: wrap; width: auto; justify-content: center; }
+      .skills-track [aria-hidden="true"] { display: none; }
+      .portfolio-grid .project-card,
+      #card-expanded,
+      #card-expanded.expanding .card-body { transition: none; animation: none; }
+      #card-expanded .card-body { opacity: 1; transform: none; }
+      .card-pulse { animation: none; outline-color: var(--blue); }
     }
   </style>
 </head>
@@ -1195,7 +1089,7 @@
   <!-- ── NAVIGATION ─────────────────────────────────────────────── -->
   <nav class="nav" aria-label="Site navigation">
     <div class="nav-brand-group">
-      <a href="#homepage" class="nav-brand">Jacob Ziolkowski</a>
+      <a href="#homepage" class="nav-brand" aria-label="Jacob Ziolkowski"><span class="nav-brand-full">Jacob Ziolkowski</span><span class="nav-brand-short" aria-hidden="true">JZ</span></a>
       <a href="https://www.linkedin.com/in/jacob-ziolkowski/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="nav-social">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
       </a>
@@ -1210,31 +1104,25 @@
       <li><a href="#resume"     data-target="resume">Resume</a></li>
       <li><a href="#contact"    data-target="contact">Contact</a></li>
     </ul>
+    <div aria-hidden="true"></div>
   </nav>
 
   <!-- ── HERO ───────────────────────────────────────────────────── -->
   <section id="homepage" class="section dark anchor" aria-labelledby="hero-heading">
     <div class="section-inner">
-
-      <div>
-        <p class="hero-eyebrow">Health IT, UX, and Applied IT Support</p>
-        <h1 id="hero-heading" class="hero-headline">Jacob Ziolkowski</h1>
-        <p class="hero-sub">FSU ICT student building practical, patient-centered health technology.</p>
-        <p class="hero-body">
-          I’m an Information, Communication, and Technology student at Florida State University focused on health IT, digital health experiences, and usable technology. My background includes hands-on IT support, web administration, and interface design - and I’m now building projects that connect technical systems with real user needs.
-        </p>
-        <div class="hero-ctas">
-          <a href="#experience" class="btn-blue">View Experience</a>
-          <a href="#portfolio"  class="btn-pill-dark">See Projects</a>
-        </div>
+      <div class="headshot-clip">
+        <img src="assets/images/headshot-new.jpg" alt="Jacob Ziolkowski" class="headshot-img" />
       </div>
-
-      <div class="headshot-wrap">
-        <div class="headshot-clip">
-          <img src="assets/images/headshot-new.jpg" alt="Jacob Ziolkowski" class="headshot-img" />
-        </div>
+      <p class="hero-eyebrow">Health IT, UX, and Applied IT Support</p>
+      <h1 id="hero-heading" class="hero-headline t-hero">Jacob Ziolkowski</h1>
+      <p class="hero-sub t-subhead">FSU ICT student building practical, patient-centered health technology.</p>
+      <p class="hero-body t-body">
+        I’m an Information, Communication, and Technology student at Florida State University focused on health IT, digital health experiences, and usable technology. My background includes hands-on IT support, web administration, and interface design — and I’m now building projects that connect technical systems with real user needs.
+      </p>
+      <div class="hero-ctas">
+        <a href="#experience" class="btn btn-blue">View Experience</a>
+        <a href="#portfolio"  class="link">See projects</a>
       </div>
-
     </div>
   </section>
 
@@ -1242,7 +1130,7 @@
   <div class="jobs-quote-bar">
     <blockquote class="jobs-quote">
       <p>&ldquo;If today were the last day of my life, would I want to do what I am about to do today?&rdquo;</p>
-      <cite>&mdash; Steve Jobs</cite>
+      <cite>Steve Jobs</cite>
     </blockquote>
   </div>
 
@@ -1251,9 +1139,9 @@
     <div class="section-inner">
 
       <div class="section-header">
-        <span class="s-eyebrow-light">Professional Background</span>
-        <h2 id="experience-heading" class="s-heading-light">Experience</h2>
-        <p class="s-body-light">
+        <span class="s-eyebrow">Professional Background</span>
+        <h2 id="experience-heading" class="s-heading t-headline">Experience</h2>
+        <p class="s-body t-subhead">
           My experience combines front-line technical support, web administration, and academic work in health informatics. Together, those experiences have shaped how I think about usability, systems, and the people who depend on technology when it needs to work.
         </p>
       </div>
@@ -1261,9 +1149,11 @@
       <div class="timeline">
 
         <div class="timeline-item">
-          <div class="tl-role">Web Admin Assistant</div>
-          <div class="tl-company">Florida State University - Information Technology Services</div>
-          <div class="tl-dates">Florida State University</div>
+          <div class="tl-meta">
+            <div class="tl-role">Web Admin Assistant</div>
+            <div class="tl-company">Florida State University — Information Technology Services</div>
+            <div class="tl-dates">September 2025 – Present</div>
+          </div>
           <ul class="tl-bullets">
             <li>Updated and maintained public-facing university web content for clarity, consistency, and accessibility.</li>
             <li>Turned stakeholder requests into structured CMS changes while keeping branding and page usability intact.</li>
@@ -1273,9 +1163,11 @@
         </div>
 
         <div class="timeline-item">
-          <div class="tl-role">IT Helpdesk Technician</div>
-          <div class="tl-company">FSU College of Communication &amp; Information</div>
-          <div class="tl-dates">Florida State University</div>
+          <div class="tl-meta">
+            <div class="tl-role">IT Helpdesk Technician</div>
+            <div class="tl-company">FSU College of Communication &amp; Information</div>
+            <div class="tl-dates">May 2023 – September 2025</div>
+          </div>
           <ul class="tl-bullets">
             <li>Resolved day-to-day technical issues for students, faculty, and staff across Windows and macOS devices.</li>
             <li>Supported account access, software installs, device setup, and basic troubleshooting in a fast-paced support environment.</li>
@@ -1288,18 +1180,19 @@
 
       <div class="skills-block">
         <h3 class="skills-label">Skills</h3>
+        <p class="skills-hint">Select a skill to see where I’ve applied it.</p>
         <div class="skills-marquee" aria-label="Skills">
           <!-- Row 1: Health IT and UX -->
           <div class="skills-track skills-track--fwd">
-            <span class="skill-tag" data-project="card-hit-prototype,card-skinsync">Health Informatics</span>
-            <span class="skill-tag" data-project="card-hit-prototype,card-skinsync">Patient-Centered Design</span>
-            <span class="skill-tag" data-project="card-skinsync">Digital Health UX</span>
+            <span class="skill-tag" data-project="card-hit-prototype">Health Informatics</span>
+            <span class="skill-tag" data-project="card-hit-prototype">Patient-Centered Design</span>
+            <span class="skill-tag" data-project="card-hit-prototype">Digital Health UX</span>
             <span class="skill-tag" data-project="card-hit-prototype">Health Data Workflows</span>
             <span class="skill-tag" data-project="card-hit-prototype">Health Data Privacy</span>
-            <span class="skill-tag" data-project="card-skinsync">Figma</span>
-            <span class="skill-tag" data-project="card-skinsync">Wireframing</span>
-            <span class="skill-tag" data-project="card-skinsync">Interface Design</span>
-            <span class="skill-tag" data-project="card-skinsync">User-Centered Design</span>
+            <span class="skill-tag" data-project="card-hit-prototype">Figma</span>
+            <span class="skill-tag" data-project="card-hit-prototype">Wireframing</span>
+            <span class="skill-tag" data-project="card-hit-prototype">Interface Design</span>
+            <span class="skill-tag" data-project="card-hit-prototype">User-Centered Design</span>
           </div>
           <!-- Row 2: Web and technical -->
           <div class="skills-track skills-track--rev">
@@ -1333,9 +1226,9 @@
     <div class="section-inner">
 
       <div class="section-header">
-        <span class="s-eyebrow-dark">Selected Work</span>
-        <h2 id="portfolio-heading" class="s-heading-dark">Portfolio</h2>
-        <p class="s-body-dark">
+        <span class="s-eyebrow">Selected Work</span>
+        <h2 id="portfolio-heading" class="s-heading t-headline">Portfolio</h2>
+        <p class="s-body t-subhead">
           A selection of projects across health-focused product concepts, interface design, technical communication, and web development. Each project reflects how I approach usability, structure, and real-world problem solving.
         </p>
       </div>
@@ -1350,41 +1243,28 @@
       <div class="portfolio-scroll">
       <div class="portfolio-grid">
 
-        <!-- HIT Prototype -->
+        <!-- HIT Prototype / SkinSync -->
         <article class="project-card" id="card-hit-prototype" data-category="health-it">
           <div class="card-body">
-            <div class="card-title">Health IT Solution Prototype</div>
-            <p class="card-desc-short">A student-designed digital health concept exploring how remote care tools, structured data, and patient usability could work together in a more practical telehealth experience.</p>
+            <div class="card-title">Health IT Solution Prototype — SkinSync</div>
+            <p class="card-desc-short">A student-designed mobile health concept (SkinSync) exploring how remote care tools, structured data, and patient usability could work together to help people manage chronic skin conditions.</p>
+            <span class="card-cta">Learn more</span>
             <div class="card-media-row">
-              <p class="card-desc">This project explored a health IT concept for improving remote care experiences through better data collection and clearer clinician-facing information. The focus was not on shipping a production medical product, but on designing a more thoughtful system: one that considered patient input, structured health data, and the challenge of making remote interactions more useful. It helped me practice health informatics thinking, systems design, and translating healthcare problems into product concepts.</p>
-              <img class="card-image" src="assets/images/EczemaWise.png" alt="Health IT Solution Prototype" loading="lazy">
+              <p class="card-desc">SkinSync is a health IT concept I designed to improve remote care experiences for people managing chronic skin conditions through better data collection, clearer check-ins, and more approachable clinician-facing information. I built the wireframes and interface direction in Figma using a minimalist, mobile-first structure, with a focus on reducing friction so daily tracking feels simple and calm rather than overwhelming. The focus was not on shipping a production medical product, but on designing a more thoughtful system — one that considered patient input, structured health data, and the challenge of making remote interactions more useful. It helped me practice health informatics thinking, systems design, and translating healthcare problems into product concepts.</p>
+              <img class="card-image" src="assets/images/EczemaWise.png" alt="Health IT Solution Prototype — SkinSync" loading="lazy">
             </div>
             <ul class="card-skills">
               <li>Health informatics systems thinking</li>
               <li>Patient-centered design</li>
-              <li>Concept development</li>
-              <li>Workflow planning</li>
-              <li>Technical communication</li>
-            </ul>
-          </div>
-        </article>
-
-        <!-- SkinSync -->
-        <article class="project-card" id="card-skinsync" data-category="design">
-          <div class="card-body">
-            <div class="card-title">SkinSync App Prototype</div>
-            <p class="card-desc-short">A mobile app concept for helping users track chronic skin conditions through clearer check-ins, cleaner visuals, and a less frustrating daily experience.</p>
-            <div class="card-media-row">
-              <p class="card-desc">SkinSync is a mobile health app concept focused on helping people manage chronic skin conditions in a way that feels simple, calm, and usable. I designed the wireframes and interface direction in Figma, using a minimalist visual style and a mobile-first structure. A major goal was reducing friction: many health-tracking tools become overwhelming fast, so this concept focused on clearer flows, better hierarchy, and a more approachable experience for everyday use.</p>
-              <img class="card-image" src="assets/images/SkinSync%20-%2032E1D1BD-0A7E-4A35-9C28-CC1182A11F49.png" alt="SkinSync App Prototype" loading="lazy">
-            </div>
-            <ul class="card-skills">
               <li>UX/UI design</li>
               <li>Figma</li>
               <li>Wireframing</li>
               <li>Mobile-first design</li>
-              <li>Patient-facing interface thinking</li>
+              <li>Concept development</li>
+              <li>Workflow planning</li>
+              <li>Technical communication</li>
             </ul>
+            <div class="tile-media"><img src="assets/images/EczemaWise.png" alt="" loading="lazy"></div>
           </div>
         </article>
 
@@ -1393,6 +1273,7 @@
           <div class="card-body">
             <div class="card-title">FSU ITS Web Content Management</div>
             <p class="card-desc-short">Production web support work focused on clean content updates, consistency, and practical usability across university pages.</p>
+            <span class="card-cta">Learn more</span>
             <div class="card-media-row">
               <div class="card-desc-col">
                 <p class="card-desc">In this role, I worked on public-facing web content within Florida State University’s IT environment. The work involved keeping pages accurate, organized, and aligned with university standards while responding to real stakeholder requests. It strengthened my understanding of web operations, content structure, and the importance of clarity when users just need information to work.</p>
@@ -1410,6 +1291,7 @@
               <li>Stakeholder communication</li>
               <li>Production environment support</li>
             </ul>
+            <div class="tile-media"><img src="assets/images/Screenshot%202026-04-21%20at%202.57.48%20PM.png" alt="" loading="lazy"></div>
           </div>
         </article>
 
@@ -1418,6 +1300,7 @@
           <div class="card-body">
             <div class="card-title">FSU CCI IT Helpdesk Support</div>
             <p class="card-desc-short">Hands-on IT support experience troubleshooting devices, restoring access, and helping users solve practical technical problems.</p>
+            <span class="card-cta">Learn more</span>
             <div class="card-media-row">
               <p class="card-desc">This experience gave me daily exposure to real technical issues affecting students, faculty, and staff. I supported common endpoint, account, and software problems across Windows and macOS systems while learning how to troubleshoot under pressure and communicate clearly with non-technical users. It built the practical support mindset that now shapes how I think about reliability and usability in every project.</p>
               <img class="card-image" src="assets/images/IMG_6793.jpeg" alt="FSU CCI IT Helpdesk Support" loading="lazy">
@@ -1429,6 +1312,7 @@
               <li>Customer communication</li>
               <li>Documentation</li>
             </ul>
+            <div class="tile-media"><img src="assets/images/IMG_6793.jpeg" alt="" loading="lazy"></div>
           </div>
         </article>
 
@@ -1437,6 +1321,7 @@
           <div class="card-body">
             <div class="card-title">Interactive Resume Website</div>
             <p class="card-desc-short">A personal portfolio site designed and built to present my experience, projects, and direction in a cleaner, more intentional way than a static resume alone.</p>
+            <span class="card-cta">Learn more</span>
             <div class="card-media-row">
               <p class="card-desc">I designed and built this site as a more complete representation of my work, interests, and technical direction. The project involved structuring content, shaping the visual system, and building the front end in HTML, CSS, and JavaScript. The challenge was balancing presentation with credibility: making the site feel polished while still keeping the content grounded, readable, and useful to someone reviewing me quickly.</p>
               <div class="card-placeholder" aria-hidden="true">
@@ -1451,6 +1336,9 @@
               <li>Front-end design</li>
               <li>Project ownership</li>
             </ul>
+            <div class="tile-media tile-media--doc" aria-hidden="true">
+              <div class="doc-mock"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            </div>
           </div>
         </article>
 
@@ -1459,6 +1347,7 @@
           <div class="card-body">
             <div class="card-title">Information Architecture &amp; Documentation Project</div>
             <p class="card-desc-short">A documentation-focused project centered on organizing information clearly for both technical and non-technical audiences.</p>
+            <span class="card-cta">Learn more</span>
             <div class="card-media-row">
               <p class="card-desc">This project focused on how information should be structured so people can actually use it. I worked on organizing content, clarifying procedures, and improving how information is presented for different audiences. It reinforced one of the main things I care about in technology: systems fail people quickly when information is confusing, even if the underlying tool is technically sound.</p>
               <img class="card-image" src="assets/images/InfoArch%20-%20MidtownHighSeal.png" alt="Information Architecture &amp; Documentation Project" loading="lazy">
@@ -1470,15 +1359,22 @@
               <li>Audience awareness</li>
               <li>Structured communication</li>
             </ul>
+            <div class="tile-media"><img src="assets/images/InfoArch%20-%20MidtownHighSeal.png" alt="" loading="lazy"></div>
           </div>
         </article>
 
       </div>
       </div><!-- /.portfolio-scroll -->
 
-      <!-- Scroll tracker -->
-      <div class="carousel-tracker" aria-label="Carousel progress">
+      <!-- Carousel controls -->
+      <div class="carousel-controls" aria-label="Carousel controls">
+        <button type="button" class="carousel-btn" data-dir="-1" aria-label="Previous project">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
         <div class="tracker-dots" role="presentation"></div>
+        <button type="button" class="carousel-btn" data-dir="1" aria-label="Next project">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       </div>
 
     </div><!-- /.section-inner -->
@@ -1489,9 +1385,9 @@
     <div class="section-inner">
 
       <div class="section-header">
-        <span class="s-eyebrow-light">Credentials</span>
-        <h2 id="resume-heading" class="s-heading-light">Resume</h2>
-        <p class="s-body-light">
+        <span class="s-eyebrow">Credentials</span>
+        <h2 id="resume-heading" class="s-heading t-headline">Resume</h2>
+        <p class="s-body t-subhead">
           A concise view of my education, technical experience, and project work across IT support, web administration, and health-focused design.
         </p>
       </div>
@@ -1499,41 +1395,45 @@
       <div class="resume-layout">
 
         <!-- Resume preview -->
-        <div class="resume-doc" aria-label="Resume preview">
-          <div class="resume-preview-content">
-            <div class="resume-preview-title">Resume Preview</div>
-            <p class="resume-preview-text">Inline PDF preview removed for stability. Use the actions on the right to open or download the full resume.</p>
-          </div>
-        </div>
+        <a class="resume-doc" href="assets/JacobZiolkowski_Resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open resume PDF">
+          <div class="resume-doc-name">Jacob Ziolkowski</div>
+          <div class="resume-doc-sub">Health IT, UX, and Applied IT Support · Florida State University</div>
+          <div class="resume-doc-section">Education</div>
+          <div class="resume-doc-line w1"></div>
+          <div class="resume-doc-line w2"></div>
+          <div class="resume-doc-section">Experience</div>
+          <div class="resume-doc-line w3"></div>
+          <div class="resume-doc-line w1"></div>
+          <div class="resume-doc-line w4"></div>
+          <div class="resume-doc-section">Projects</div>
+          <div class="resume-doc-line w2"></div>
+          <div class="resume-doc-line w3"></div>
+          <div class="resume-doc-line w4"></div>
+        </a>
 
         <!-- Info + download -->
         <div class="resume-info">
           <div>
-            <h3 style="font-family:var(--display);font-size:22px;font-weight:600;color:var(--near-black);letter-spacing:-0.3px;margin-bottom:6px;">View my full resume</h3>
-            <p style="font-family:var(--text);font-size:14px;color:var(--muted-light);line-height:1.55;">Coursework, hands-on IT experience, web support work, and selected projects - all in one place.</p>
+            <h3>View my full resume</h3>
+            <p>Coursework, hands-on IT experience, web support work, and selected projects — all in one place.</p>
           </div>
-          <div class="resume-meta">
-            <div class="resume-meta-row">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <ul class="resume-meta">
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
               PDF — viewable &amp; downloadable
-            </div>
-            <div class="resume-meta-row">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </li>
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               Updated April 2026
-            </div>
-            <div class="resume-meta-row">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              Florida State University - B.S. in ICT | Health Informatics Certificate
-            </div>
-          </div>
+            </li>
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Florida State University — B.S. in ICT | Health Informatics Certificate
+            </li>
+          </ul>
           <div class="resume-cta">
-            <a href="assets/JacobZiolkowski_Resume.pdf" target="_blank" rel="noopener noreferrer" class="resume-download-btn" style="background:var(--blue);">
-              Open Resume
-            </a>
-            <a href="assets/JacobZiolkowski_Resume.pdf" download class="resume-download-btn">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download Resume
-            </a>
+            <a href="assets/JacobZiolkowski_Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-blue">Open Resume</a>
+            <a href="assets/JacobZiolkowski_Resume.pdf" download class="link">Download PDF</a>
           </div>
         </div>
 
@@ -1546,9 +1446,9 @@
     <div class="section-inner">
 
       <div class="section-header">
-        <span class="s-eyebrow-dark">Get in Touch</span>
-        <h2 id="contact-heading" class="s-heading-dark">Contact</h2>
-        <p class="s-body-dark">
+        <span class="s-eyebrow">Get in Touch</span>
+        <h2 id="contact-heading" class="s-heading t-headline">Contact</h2>
+        <p class="s-body t-subhead">
           I’m especially interested in health IT, digital health tools, practical UX, and technology that improves real user experiences. Feel free to reach out if you’d like to connect.
         </p>
       </div>
@@ -1585,8 +1485,10 @@
           </ul>
         </div>
 
-        <div style="font-family:var(--text);font-size:14px;color:rgba(255,255,255,0.58);line-height:1.6;max-width:36ch;">
+        <div class="contact-note">
           The fastest way to reach me is by email or LinkedIn. I’m open to conversations about health IT, UX-focused digital health, and entry-level technical opportunities.
+          <br>
+          <a href="mailto:j.ziolkowski.co@gmail.com" class="link">Send an email</a>
         </div>
 
       </div>
@@ -1595,23 +1497,25 @@
 
   <!-- ── FOOTER ─────────────────────────────────────────────────── -->
   <footer>
-    <p>Jacob Ziolkowski &mdash; Health IT, UX, and Applied IT Support &mdash; Florida State University</p>
+    <div class="footer-inner">
+      <p>Copyright &copy; 2026 Jacob Ziolkowski. Health IT, UX, and Applied IT Support &mdash; Florida State University.</p>
+      <ul class="footer-links" role="list">
+        <li><a href="https://www.linkedin.com/in/jacob-ziolkowski/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="https://github.com/jacobziolkowski" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li><a href="assets/JacobZiolkowski_Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a></li>
+      </ul>
+    </div>
   </footer>
 
   <div id="card-backdrop"></div>
   <div id="card-expanded"></div>
-
-  <div id="poster-lightbox" class="poster-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Poster preview">
-    <button type="button" class="poster-lightbox__close" aria-label="Close poster">&times;</button>
-    <img class="poster-lightbox__img" src="" alt="">
-  </div>
 
   <script>
     // Prevent browser from restoring previous scroll position
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
-    window.scrollTo(0, 0);
+    if (!location.hash) { window.scrollTo(0, 0); }
   </script>
   <script>
     (function () {
@@ -1624,26 +1528,12 @@
         });
       });
 
-      // skill handler wired up after carousel vars are defined (see below)
-
-      // ── Image fallback ─────────────────────────────────────────
-      document.querySelectorAll('.thumb-area img').forEach(function (img) {
-        img.addEventListener('error', function () {
-          img.classList.add('broken');
-        });
-        // If already broken (cached 404)
-        if (img.complete && img.naturalWidth === 0) {
-          img.classList.add('broken');
-        }
-      });
-
       // ── Portfolio carousel ─────────────────────────────────────
       var allCards   = Array.from(document.querySelectorAll('.project-card'));
       var scrollEl   = document.querySelector('.portfolio-scroll');
       var dotsWrap   = document.querySelector('.tracker-dots');
-      var CARD_WIDTH = 300;
-      var CARD_GAP   = 20;
-      var CARD_STEP  = CARD_WIDTH + CARD_GAP;
+      var prevBtn    = document.querySelector('.carousel-btn[data-dir="-1"]');
+      var nextBtn    = document.querySelector('.carousel-btn[data-dir="1"]');
       var lastFocusedCard = null;
 
       allCards.forEach(function (card) {
@@ -1678,14 +1568,18 @@
         return best;
       }
 
-      // keep activeIndex as alias used by legacy scroll-math paths
-      function activeIndex() { return centeredIndex(); }
+      // Scroll offset that centers card i, measured from real layout so it
+      // stays correct when card width changes at narrow breakpoints.
+      function offsetForIndex(i) {
+        var cards = visibleCards();
+        if (!cards.length) return 0;
+        var idx = Math.max(0, Math.min(i, cards.length - 1));
+        return cards[idx].offsetLeft - cards[0].offsetLeft;
+      }
 
       function scrollToIndex(i) {
-        var cards = visibleCards();
-        if (!cards.length) return;
-        var idx = Math.max(0, Math.min(i, cards.length - 1));
-        scrollEl.scrollTo({ left: idx * CARD_STEP, behavior: 'smooth' });
+        if (!visibleCards().length) return;
+        scrollEl.scrollTo({ left: offsetForIndex(i), behavior: 'smooth' });
       }
 
       // ── Dot tracker ────────────────────────────────────────────
@@ -1696,29 +1590,30 @@
           var d = document.createElement('span');
           d.className = 'tracker-dot' + (i === 0 ? ' active' : '');
           d.setAttribute('aria-hidden', 'true');
+          d.addEventListener('click', function () { scrollToIndex(i); });
           dotsWrap.appendChild(d);
         });
       }
 
       function updateDots() {
-        var dots    = dotsWrap.querySelectorAll('.tracker-dot');
-        var idx     = activeIndex();
-        dots.forEach(function (d, i) {
-          var isActive  = i === idx;
-          d.classList.toggle('active', isActive);
-        });
+        var dots = dotsWrap.querySelectorAll('.tracker-dot');
+        var idx  = centeredIndex();
+        var n    = visibleCards().length;
+        dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+        prevBtn.disabled = idx <= 0;
+        nextBtn.disabled = idx >= n - 1;
       }
 
-      // ── Card scale fan ─────────────────────────────────────────
+      // ── Card scale fan (subtle) ────────────────────────────────
       function updateCardScales() {
         var containerRect   = scrollEl.getBoundingClientRect();
         var containerCenter = containerRect.left + containerRect.width / 2;
         visibleCards().forEach(function (card) {
-          var r          = card.getBoundingClientRect();
-          var dist       = Math.abs(containerCenter - (r.left + r.width / 2));
-          var ratio      = Math.min(dist / (containerRect.width / 2), 1);
-          card.style.transform = 'scale(' + (1 - ratio * 0.18).toFixed(4) + ')';
-          card.style.opacity   = (1 - ratio * 0.45).toFixed(4);
+          var r     = card.getBoundingClientRect();
+          var dist  = Math.abs(containerCenter - (r.left + r.width / 2));
+          var ratio = Math.min(dist / (containerRect.width / 2), 1);
+          card.style.transform = 'scale(' + (1 - ratio * 0.08).toFixed(4) + ')';
+          card.style.opacity   = (1 - ratio * 0.5).toFixed(4);
         });
       }
 
@@ -1750,6 +1645,9 @@
         isDragging = false;
         scrollEl.style.cursor = '';
         scrollEl.style.userSelect = '';
+        // The click event (if any) fires synchronously after mouseup; clear
+        // the flag afterwards so a drag can't swallow an unrelated later click.
+        setTimeout(function () { dragMoved = false; }, 0);
       });
 
       // ── Scroll listener ────────────────────────────────────────
@@ -1760,13 +1658,16 @@
         });
       }, { passive: true });
 
+      // ── Prev / next ────────────────────────────────────────────
+      prevBtn.addEventListener('click', function () { scrollToIndex(centeredIndex() - 1); });
+      nextBtn.addEventListener('click', function () { scrollToIndex(centeredIndex() + 1); });
+
       // ── Filters ────────────────────────────────────────────────
       document.querySelector('.portfolio-filters').addEventListener('click', function (e) {
         var btn = e.target.closest('.pf-btn');
         if (!btn) return;
         var filter = btn.getAttribute('data-filter');
 
-        // Update button labels — no count on "All"
         document.querySelectorAll('.pf-btn').forEach(function (b) {
           var isActive = b === btn;
           b.classList.toggle('active', isActive);
@@ -1792,10 +1693,9 @@
         void scrollEl.offsetWidth; // force reflow before scale calc
 
         buildDots();
-        updateCardScales(); // sets correct transforms instantly (no transition yet)
+        updateCardScales();
         updateDots();
 
-        // Re-enable transitions on next paint so future scrolls animate smoothly
         requestAnimationFrame(function () {
           allCards.forEach(function (card) { card.style.transition = ''; });
         });
@@ -1806,6 +1706,18 @@
       updateCardScales();
       updateDots();
 
+      // Layout can change without a scroll event (orientation change, window
+      // resize, late font/image load) — keep the fan and dots in sync.
+      var resizeTimer = null;
+      function refreshCarousel() {
+        updateCardScales();
+        updateDots();
+      }
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(refreshCarousel, 80);
+      });
+      window.addEventListener('load', refreshCarousel);
 
       // ── Skill tag → focus project in carousel ──────────────────
       document.querySelector('.skills-marquee').addEventListener('click', function (e) {
@@ -1821,7 +1733,6 @@
           b.textContent = b.getAttribute('data-label');
         });
 
-        // Show all cards, strip stale transforms so they appear clean
         allCards.forEach(function (c) {
           c.style.transition = 'none';
           c.style.transform  = '';
@@ -1830,15 +1741,12 @@
         });
         void scrollEl.offsetWidth; // reflow
 
-        // Scroll carousel to center the target card
-        var idx = allCards.indexOf(card);
-        scrollEl.scrollLeft = idx * CARD_STEP;
+        scrollEl.scrollLeft = offsetForIndex(allCards.indexOf(card));
 
         buildDots();
         updateCardScales();
         updateDots();
 
-        // Re-enable transitions on next paint
         requestAnimationFrame(function () {
           allCards.forEach(function (c) { c.style.transition = ''; });
         });
@@ -1851,10 +1759,8 @@
           card.classList.remove('card-pulse');
         }, { once: true });
 
-        // Scroll page to portfolio section
         document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
-
 
       // ── Nav active state on scroll ─────────────────────────────
       var links    = Array.from(document.querySelectorAll('.nav-links a[data-target]'));
@@ -1893,21 +1799,21 @@
         lastFocusedCard = card;
         card.setAttribute('aria-expanded', 'true');
 
-        // Populate expanded panel with cloned content
         expandedEl.innerHTML = '';
         Array.from(card.children).forEach(function (child) {
           expandedEl.appendChild(child.cloneNode(true));
         });
 
-        // Close button
         var btn = document.createElement('button');
         btn.className = 'card-expanded-close';
         btn.setAttribute('aria-label', 'Close');
-        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>';
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="1.5" y1="1.5" x2="12.5" y2="12.5"/><line x1="12.5" y1="1.5" x2="1.5" y2="12.5"/></svg>';
         btn.addEventListener('click', function (e) { e.stopPropagation(); closeCard(); });
         expandedEl.appendChild(btn);
         expandedEl.setAttribute('role', 'dialog');
         expandedEl.setAttribute('aria-modal', 'true');
+        var titleEl = card.querySelector('.card-title');
+        expandedEl.setAttribute('aria-label', titleEl ? titleEl.textContent.trim() : 'Project details');
 
         // Snap to card position (no transition yet)
         expandedEl.style.transition = 'none';
@@ -1915,24 +1821,23 @@
         expandedEl.style.left   = rect.left + 'px';
         expandedEl.style.width  = rect.width  + 'px';
         expandedEl.style.height = rect.height + 'px';
-        expandedEl.style.borderRadius = '12px';
+        expandedEl.style.borderRadius = '18px';
         expandedEl.classList.add('expanding');
 
         sourceCard = card;
         card.classList.add('project-card--source');
         syncOverlayState();
 
-        // Animate to center on next paint
         requestAnimationFrame(function () {
           requestAnimationFrame(function () {
-            var w = Math.min(680, window.innerWidth  * 0.92);
-            var h = Math.min(720, window.innerHeight * 0.88);
+            var w = Math.min(760, window.innerWidth  * 0.92);
+            var h = Math.min(740, window.innerHeight * 0.88);
             expandedEl.style.transition = '';
             expandedEl.style.top    = Math.max(20, (window.innerHeight - h) / 2) + 'px';
             expandedEl.style.left   = ((window.innerWidth  - w) / 2) + 'px';
             expandedEl.style.width  = w + 'px';
             expandedEl.style.height = h + 'px';
-            expandedEl.style.borderRadius = '20px';
+            expandedEl.style.borderRadius = '24px';
             btn.focus();
           });
         });
@@ -1943,26 +1848,24 @@
         var sc = sourceCard;
         sourceCard = null;
 
-        // Ghost the content back out first
         var body = expandedEl.querySelector('.card-body');
         if (body) {
           body.style.animation  = 'none';
           body.style.opacity    = '1';
           body.style.transform  = 'translateY(0)';
-          void body.offsetWidth; // force reflow so transition fires
+          void body.offsetWidth;
           body.style.transition = 'opacity 0.18s ease, transform 0.18s ease';
           body.style.opacity    = '0';
           body.style.transform  = 'translateY(16px)';
         }
 
-        // Then collapse the tile after a short pause
         setTimeout(function () {
           var rect = sc.getBoundingClientRect();
           expandedEl.style.top          = rect.top    + 'px';
           expandedEl.style.left         = rect.left   + 'px';
           expandedEl.style.width        = rect.width  + 'px';
           expandedEl.style.height       = rect.height + 'px';
-          expandedEl.style.borderRadius = '12px';
+          expandedEl.style.borderRadius = '18px';
           expandedEl.style.boxShadow    = 'rgba(0,0,0,0.22) 3px 5px 30px 0px';
 
           setTimeout(function () {
@@ -1973,65 +1876,45 @@
             syncOverlayState();
 
             var body = sc.querySelector('.card-body');
-
-            // Body starts at ghost-in position, card appears instantly
             sc.classList.remove('project-card--source');
             if (body) {
               body.style.opacity    = '0';
               body.style.transform  = 'translateY(10px)';
               body.style.transition = 'none';
             }
-
             void sc.offsetWidth;
-
-            // Body ghosts up — same curve as open
             if (body) {
               body.style.transition = 'opacity 0.52s cubic-bezier(0.2, 0, 0, 1), transform 0.52s cubic-bezier(0.2, 0, 0, 1)';
               body.style.opacity    = '1';
               body.style.transform  = 'translateY(0)';
             }
-
             setTimeout(function () {
               if (body) body.style.cssText = '';
             }, 600);
 
             if (lastFocusedCard) {
-              lastFocusedCard.focus();
+              lastFocusedCard.focus({ preventScroll: true });
               lastFocusedCard = null;
             }
           }, 520);
         }, 160);
       }
 
+      // Any tile opens on click; a drag never counts as a click.
       document.querySelector('.portfolio-grid').addEventListener('click', function (e) {
         if (sourceCard) return;
         if (dragMoved) { dragMoved = false; return; }
         var card = e.target.closest('.project-card');
-        if (!card) return;
-        var cards = visibleCards();
-        var clickedIdx = cards.indexOf(card);
-        if (clickedIdx === -1) return;
-        if (clickedIdx !== centeredIndex()) {
-          scrollToIndex(clickedIdx);
-        } else {
-          openCard(card);
-        }
+        if (!card || card.hidden) return;
+        openCard(card);
       });
 
       document.querySelector('.portfolio-grid').addEventListener('keydown', function (e) {
         var card = e.target.closest('.project-card');
         if (!card || sourceCard) return;
-
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          var cards = visibleCards();
-          var focusedIdx = cards.indexOf(card);
-          if (focusedIdx === -1) return;
-          if (focusedIdx !== centeredIndex()) {
-            scrollToIndex(focusedIdx);
-          } else {
-            openCard(card);
-          }
+          openCard(card);
         }
       });
 
@@ -2041,37 +1924,25 @@
         if (e.key === 'Escape') { closeCard(); }
       });
 
-      // ── Poster lightbox ────────────────────────────────────────
-      var lightbox    = document.getElementById('poster-lightbox');
-      var lightboxImg = lightbox.querySelector('.poster-lightbox__img');
-
-      function openLightbox(src) {
-        lightboxImg.src = src;
-        lightbox.classList.add('active');
-        lightbox.setAttribute('aria-hidden', 'false');
-      }
-      function closeLightbox() {
-        lightbox.classList.remove('active');
-        lightbox.setAttribute('aria-hidden', 'true');
-        lightboxImg.src = '';
-      }
-
-      document.body.addEventListener('click', function (e) {
-        var trigger = e.target.closest('.poster-trigger');
-        if (!trigger) return;
-        e.stopPropagation();
-        var src = trigger.getAttribute('data-poster-src')
-          || (trigger.querySelector('img') && trigger.querySelector('img').src);
-        if (src) openLightbox(src);
-      });
-
-      lightbox.addEventListener('click', function (e) {
-        if (e.target !== lightboxImg) closeLightbox();
-      });
-
+      // Keep keyboard focus inside the open card (Tab / Shift+Tab wrap)
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-          closeLightbox();
+        if (!sourceCard || e.key !== 'Tab') return;
+        var focusables = Array.from(expandedEl.querySelectorAll(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )).filter(function (el) { return el.offsetParent !== null; });
+        if (!focusables.length) { e.preventDefault(); return; }
+        var first = focusables[0];
+        var last  = focusables[focusables.length - 1];
+        var active = document.activeElement;
+        if (!expandedEl.contains(active)) {
+          e.preventDefault();
+          (e.shiftKey ? last : first).focus();
+        } else if (e.shiftKey && active === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && active === last) {
+          e.preventDefault();
+          first.focus();
         }
       });
     }());
